@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import {
-  SiFlutter, SiReact, SiC, SiPython, SiPhp, SiHtml5, SiCss3, SiJavascript,
+  SiFlutter, SiReact, SiC, SiPython, SiHtml5, SiCss3, SiJavascript,
   SiNodedotjs, SiMysql, SiMongodb, SiFirebase, SiGit, SiGithub, SiFigma,
-  SiXampp, SiPostman
+  SiXampp, SiPostman,
+  SiDart
 } from 'react-icons/si';
 import { DiJava } from 'react-icons/di';
 import { FaMicrosoft } from 'react-icons/fa';
@@ -20,7 +21,7 @@ const skillIconMap: Record<string, React.ReactNode> = {
   C: <SiC />,
   Java: <DiJava />,
   Python: <SiPython />,
-  PHP: <SiPhp />,
+  Dart: <SiDart />,
   HTML: <SiHtml5 />,
   CSS: <SiCss3 />,
   JavaScript: <SiJavascript />,
@@ -59,12 +60,12 @@ const Skills: React.FC = () => {
     },
     {
       title: 'Programming Languages',
-      skills: ['C', 'Java', 'Python', 'PHP'],
+      skills: ['C', 'Dart', 'Python', 'Java'],
       color: 'purple'
     },
     {
       title: 'Web Technologies',
-      skills: ['HTML', 'CSS', 'JavaScript', 'NodeJS'],
+      skills: ['HTML', 'CSS', 'JavaScript', 'NodeJS',],
       color: 'green'
     },
     {
@@ -101,11 +102,11 @@ const Skills: React.FC = () => {
       observer.observe(currentRef);
     }
 
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
+    // return () => {
+    //   if (currentRef) {
+    //     observer.unobserve(currentRef);
+    //   }
+    // };
   }, []);
 
   return (

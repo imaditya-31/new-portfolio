@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { FileDown, BookOpen } from 'lucide-react';
+import React, { useEffect, useRef } from "react";
+import { FileDown, BookOpen } from "lucide-react";
 
 const Resume: React.FC = () => {
   const resumeRef = useRef<HTMLDivElement>(null);
@@ -8,8 +8,8 @@ const Resume: React.FC = () => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('opacity-100', 'translate-y-0');
-          entry.target.classList.remove('opacity-0', 'translate-y-10');
+          entry.target.classList.add("opacity-100", "translate-y-0");
+          entry.target.classList.remove("opacity-0", "translate-y-10");
         }
       },
       { threshold: 0.1 }
@@ -19,11 +19,11 @@ const Resume: React.FC = () => {
       observer.observe(resumeRef.current);
     }
 
-    return () => {
-      if (resumeRef.current) {
-        observer.unobserve(resumeRef.current);
-      }
-    };
+    // return () => {
+    //   if (resumeRef.current) {
+    //     observer.unobserve(resumeRef.current);
+    //   }
+    // };
   }, []);
 
   return (
@@ -41,7 +41,8 @@ const Resume: React.FC = () => {
           <div className="text-center mb-8">
             <h3 className="text-2xl font-bold mb-2">Download My Resume</h3>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              Get a comprehensive overview of my skills, experience, and education.
+              Get a comprehensive overview of my skills, experience, and
+              education.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <a
@@ -67,13 +68,24 @@ const Resume: React.FC = () => {
           <div className="border-t border-gray-200 dark:border-gray-700 pt-8">
             <h4 className="text-lg font-semibold mb-4">Resume Highlights</h4>
             <ul className="space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside">
-              <li>Flutter Developer with expertise in creating cross-platform mobile applications</li>
-              <li>Bachelor of Computer Science from Savitribai Phule Pune University</li>
-              <li>Experience in UI/UX design principles for mobile applications</li>
-              <li>Proficient in Java, HTML, CSS, JavaScript, and PHP</li>
-              <li>Skilled in Firebase integration and backend services</li>
-              <li>Strong problem-solving skills and attention to detail</li>
-              <li>Passionate about creating intuitive, user-friendly applications</li>
+              <li>
+                Results-driven Flutter Developer with 1+ years of hands-on
+                experience in building cross-platform mobile applications using
+                Flutter, Firebase, and RESTful APIs.
+              </li>
+              <li>
+                Currently working as a Software Engineer at Techriigour IT
+                Solutions, contributing to production apps, scalable solutions,
+                and real-time features.
+              </li>
+              <li>
+                Post Graduate in Computer Science from Pratibha College of
+                Commerce & Computer Studies
+              </li>
+              <li>
+                Experience in designing intuitive interfaces and visualizing
+                user flows for end-to-end applications.
+              </li>
             </ul>
           </div>
         </div>
