@@ -97,3 +97,137 @@ html:not(.dark) .glass-card {
 html:not(.dark) .glass-card-interactive {
   @apply hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)];
 }
+
+/* ==========================================================================
+   Print & Save as PDF Styles (Strict 2-Page Executive Document Engine)
+   ========================================================================== */
+@media print {
+  /* 1. Global Reset - Hide everything except the printable resume container */
+  html,
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    font-size: 10pt !important;
+  }
+
+  /* Completely suppress background application tree, navbar, hero, footer, and interactive overlays */
+  #root,
+  .resume-screen-only,
+  .resume-modal-backdrop,
+  .resume-modal-toolbar,
+  header,
+  nav,
+  footer {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* 2. Configure A4 page sizing and margins */
+  @page {
+    size: A4 portrait;
+    margin: 8mm 12mm 8mm 12mm;
+  }
+
+  /* 3. Make modal portal a non-interfering block */
+  .resume-modal-portal {
+    position: static !important;
+    inset: auto !important;
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    overflow: visible !important;
+    z-index: auto !important;
+    width: 100% !important;
+  }
+
+  .resume-modal-sheet {
+    position: static !important;
+    max-width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    color: #111827 !important;
+  }
+
+  #printable-resume-container {
+    display: block !important;
+    width: 100% !important;
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* 4. Individual Page Layouts */
+  .resume-sheet {
+    background: #ffffff !important;
+    color: #111827 !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    min-height: 0 !important;
+  }
+
+  .resume-sheet-page-1 {
+    page-break-after: always !important;
+    break-after: page !important;
+  }
+
+  .resume-sheet-page-2 {
+    page-break-before: always !important;
+    break-before: page !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  /* 5. Prevent fragmentation inside sections */
+  .resume-section {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .resume-entry {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .resume-heading {
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+    border-bottom: 1.5px solid #111827 !important;
+    color: #111827 !important;
+  }
+
+  .resume-print-text {
+    color: #111827 !important;
+  }
+
+  .resume-print-subtext {
+    color: #374151 !important;
+  }
+
+  .resume-print-accent {
+    color: #111827 !important;
+    text-decoration: underline !important;
+  }
+
+  a {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+}
