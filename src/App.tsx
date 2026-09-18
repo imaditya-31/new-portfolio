@@ -40,7 +40,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#07090E] text-slate-100 relative selection:bg-cyan-500/30 selection:text-cyan-300 font-sans">
+    <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#07090E] text-slate-900 dark:text-slate-100 transition-colors duration-300 relative selection:bg-cyan-500/30 selection:text-cyan-700 dark:selection:text-cyan-300 font-sans">
       <HeroSpotlight>
         <Navbar
           theme={theme}

@@ -30,13 +30,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       primary:
         'bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white font-medium shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] border border-white/20',
       secondary:
-        'bg-white/[0.08] hover:bg-white/[0.14] text-white font-medium border border-white/[0.12] backdrop-blur-md',
+        'bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.14] text-slate-800 dark:text-white font-medium border border-slate-200 dark:border-white/[0.12] backdrop-blur-md',
       outline:
-        'bg-transparent hover:bg-cyan-500/10 text-cyan-400 border border-cyan-500/40 hover:border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.1)]',
+        'bg-transparent hover:bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/40 hover:border-cyan-500 shadow-sm',
       ghost:
-        'bg-transparent hover:bg-white/[0.06] text-slate-300 hover:text-white',
+        'bg-transparent hover:bg-slate-100 dark:hover:bg-white/[0.06] text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white',
       glow:
-        'relative bg-[#0D1117] text-cyan-300 border border-cyan-500/50 shadow-[0_0_25px_rgba(6,182,212,0.25)] hover:border-cyan-400'
+        'relative bg-white dark:bg-[#0D1117] text-cyan-700 dark:text-cyan-300 border border-cyan-500/40 shadow-sm hover:border-cyan-500'
     };
 
     return (

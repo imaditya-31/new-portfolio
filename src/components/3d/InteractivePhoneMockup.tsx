@@ -75,9 +75,9 @@ export const InteractivePhoneMockup: React.FC = () => {
       <motion.div
         animate={{ y: [-5, 5, -5] }}
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute -top-3 -left-6 z-30 hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-[#0D1117]/90 backdrop-blur-xl border border-cyan-500/30 shadow-[0_8px_30px_rgba(6,182,212,0.2)] text-xs font-mono text-cyan-300 pointer-events-none"
+        className="absolute -top-3 -left-6 z-30 hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/90 dark:bg-[#0D1117]/90 backdrop-blur-xl border border-cyan-500/30 shadow-[0_8px_30px_rgba(6,182,212,0.2)] text-xs font-mono text-cyan-600 dark:text-cyan-300 pointer-events-none"
       >
-        <div className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+        <div className="w-2 h-2 rounded-full bg-cyan-500 animate-ping" />
         <span className="font-semibold">BLoC &amp; Clean Architecture</span>
       </motion.div>
 
@@ -85,9 +85,9 @@ export const InteractivePhoneMockup: React.FC = () => {
       <motion.div
         animate={{ y: [6, -6, 6] }}
         transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-        className="absolute -bottom-2 -right-6 z-30 hidden sm:flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-[#0D1117]/90 backdrop-blur-xl border border-emerald-500/30 shadow-[0_8px_30px_rgba(16,185,129,0.2)] text-xs font-mono text-emerald-300 pointer-events-none"
+        className="absolute -bottom-2 -right-6 z-30 hidden sm:flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-white/90 dark:bg-[#0D1117]/90 backdrop-blur-xl border border-emerald-500/30 shadow-[0_8px_30px_rgba(16,185,129,0.2)] text-xs font-mono text-emerald-600 dark:text-emerald-300 pointer-events-none"
       >
-        <ShieldCheck size={16} className="text-emerald-400" />
+        <ShieldCheck size={16} className="text-emerald-500" />
         <span>20K → &lt;500 Crashes</span>
       </motion.div>
 

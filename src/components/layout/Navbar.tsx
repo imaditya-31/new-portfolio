@@ -66,7 +66,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme, onResumeClic
       <div
         className={`max-w-7xl mx-auto rounded-2xl transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#07090E]/80 backdrop-blur-xl border border-white/[0.08] shadow-2xl py-3 px-5'
+            ? 'bg-white/80 dark:bg-[#07090E]/80 backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] shadow-lg dark:shadow-2xl py-3 px-5'
             : 'bg-transparent py-4 px-2'
         }`}
       >
@@ -78,30 +78,30 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme, onResumeClic
               className="group flex items-center gap-2 text-left cursor-pointer"
             >
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-600 p-[1px] shadow-[0_0_15px_rgba(6,182,212,0.4)]">
-                <div className="w-full h-full bg-[#07090E] rounded-[11px] flex items-center justify-center font-mono font-bold text-white group-hover:text-cyan-300 transition-colors">
+                <div className="w-full h-full bg-white dark:bg-[#07090E] rounded-[11px] flex items-center justify-center font-mono font-bold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors">
                   AV
                 </div>
               </div>
               <div className="hidden sm:block">
-                <div className="text-sm font-bold text-white tracking-tight flex items-center gap-1.5">
+                <div className="text-sm font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-1.5">
                   Aditya Vishwakarma
-                  <Sparkles size={12} className="text-cyan-400" />
+                  <Sparkles size={12} className="text-cyan-500 dark:text-cyan-400" />
                 </div>
-                <div className="text-[11px] font-mono text-slate-400">
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
                   Mobile App Engineer
                 </div>
               </div>
             </button>
 
             {/* Live Status Pill */}
-            <div className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-mono text-emerald-400">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <div className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-mono text-emerald-600 dark:text-emerald-400">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
               <span>Open to High-Impact Opportunities</span>
             </div>
           </div>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 p-1 rounded-full bg-white/[0.04] border border-white/[0.06] backdrop-blur-md">
+          <nav className="hidden md:flex items-center gap-1 p-1 rounded-full bg-slate-100/80 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.06] backdrop-blur-md">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
               return (
@@ -110,8 +110,8 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme, onResumeClic
                   onClick={() => scrollTo(item.id)}
                   className={`relative px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 cursor-pointer ${
                     isActive
-                      ? 'text-white'
-                      : 'text-slate-400 hover:text-slate-200'
+                      ? 'text-slate-900 dark:text-white font-semibold'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                   }`}
                 >
                   {isActive && (
@@ -132,10 +132,10 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme, onResumeClic
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className="p-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.08] text-slate-300 hover:text-white transition-all duration-200 cursor-pointer"
+              className="p-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.05] hover:bg-slate-200 dark:hover:bg-white/[0.1] border border-slate-200 dark:border-white/[0.08] text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all duration-200 cursor-pointer"
               aria-label="Toggle dark/light mode"
             >
-              {theme === 'light' ? <Moon size={17} /> : <Sun size={17} className="text-amber-400" />}
+              {theme === 'light' ? <Moon size={17} className="text-slate-700" /> : <Sun size={17} className="text-amber-400" />}
             </button>
 
             {/* Interactive Code-Generated Resume Button */}
@@ -144,7 +144,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme, onResumeClic
                 variant="glow"
                 size="sm"
                 onClick={onResumeClick}
-                icon={<FileDown size={14} className="text-cyan-400" />}
+                icon={<FileDown size={14} className="text-cyan-500 dark:text-cyan-400" />}
               >
                 Resume
               </Button>
@@ -153,7 +153,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme, onResumeClic
             {/* Mobile Menu Trigger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2.5 rounded-xl bg-white/[0.05] border border-white/[0.08] text-slate-300 hover:text-white cursor-pointer"
+              className="md:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-slate-700 dark:text-slate-300 cursor-pointer"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -168,7 +168,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme, onResumeClic
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden mt-3 pt-3 border-t border-white/[0.08] flex flex-col gap-1 overflow-hidden"
+              className="md:hidden mt-3 pt-3 border-t border-slate-200 dark:border-white/[0.08] flex flex-col gap-1 overflow-hidden bg-white/95 dark:bg-[#07090E]/95 rounded-xl p-3"
             >
               {navItems.map((item) => (
                 <button

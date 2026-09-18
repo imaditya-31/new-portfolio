@@ -41,7 +41,7 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden bg-[#05070A]/80">
+    <section id="contact" className="py-24 relative overflow-hidden bg-slate-50/50 dark:bg-[#05070A]/80">
       {/* Background radial glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-t from-cyan-500/10 via-indigo-500/5 to-transparent rounded-full blur-3xl pointer-events-none" />
 
@@ -52,14 +52,14 @@ export const Contact: React.FC = () => {
             <MessageSquare size={12} className="mr-1" />
             Let's Collaborate
           </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Get In{' '}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-400">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 dark:from-cyan-400 dark:via-blue-500 dark:to-indigo-400">
               Touch
             </span>
           </h2>
-          <p className="text-slate-400 text-sm sm:text-base max-w-xl mt-3">
-            Available for Senior & Mid-Senior Flutter engineering roles, enterprise consulting, and high-impact fintech initiatives.
+          <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base max-w-xl mt-3">
+            Available for Senior &amp; Mid-Senior Flutter engineering roles, enterprise consulting, and high-impact fintech initiatives.
           </p>
         </div>
 
@@ -67,10 +67,10 @@ export const Contact: React.FC = () => {
           {/* Left Column: Direct Connect & Info Pills */}
           <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-white tracking-tight">
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
                 Start a Conversation
               </h3>
-              <p className="text-slate-300 text-sm leading-relaxed">
+              <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
                 Whether you have an upcoming mobile project, want to discuss BBPS dynamic form architectures, or have an open engineering role, my inbox is always open.
               </p>
             </div>
@@ -78,16 +78,16 @@ export const Contact: React.FC = () => {
             {/* Quick Contact Cards */}
             <div className="space-y-3">
               {/* Email with 1-click copy */}
-              <div className="p-4 rounded-2xl bg-[#0D1117]/80 border border-white/[0.08] flex items-center justify-between group hover:border-cyan-500/30 transition-all">
+              <div className="p-4 rounded-2xl bg-white dark:bg-[#0D1117]/80 border border-slate-200/80 dark:border-white/[0.08] shadow-sm flex items-center justify-between group hover:border-cyan-500/40 transition-all">
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                  <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-500 dark:text-cyan-400 border border-cyan-500/20">
                     <Mail size={18} />
                   </div>
                   <div>
-                    <div className="text-[11px] font-mono text-slate-400 uppercase">Email</div>
+                    <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase">Email</div>
                     <a
                       href="mailto:adityavishwakarma355@gmail.com"
-                      className="text-sm font-semibold text-white hover:text-cyan-300 transition-colors"
+                      className="text-sm font-semibold text-slate-900 dark:text-white hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors"
                     >
                       adityavishwakarma355@gmail.com
                     </a>
@@ -95,24 +95,24 @@ export const Contact: React.FC = () => {
                 </div>
                 <button
                   onClick={copyEmail}
-                  className="p-2 rounded-xl bg-white/[0.05] hover:bg-cyan-500/20 text-slate-300 hover:text-cyan-300 transition-all cursor-pointer"
+                  className="p-2 rounded-xl bg-slate-100 dark:bg-white/[0.05] hover:bg-cyan-500/20 text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-300 transition-all cursor-pointer"
                   title="Copy email to clipboard"
                   aria-label="Copy email"
                 >
-                  {isCopied ? <Check size={16} className="text-emerald-400" /> : <Copy size={16} />}
+                  {isCopied ? <Check size={16} className="text-emerald-500 dark:text-emerald-400" /> : <Copy size={16} />}
                 </button>
               </div>
 
               {/* Phone Card */}
-              <div className="p-4 rounded-2xl bg-[#0D1117]/80 border border-white/[0.08] flex items-center gap-3 hover:border-indigo-500/30 transition-all">
-                <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+              <div className="p-4 rounded-2xl bg-white dark:bg-[#0D1117]/80 border border-slate-200/80 dark:border-white/[0.08] shadow-sm flex items-center gap-3 hover:border-indigo-500/40 transition-all">
+                <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 border border-indigo-500/20">
                   <Phone size={18} />
                 </div>
                 <div>
-                  <div className="text-[11px] font-mono text-slate-400 uppercase">Phone</div>
+                  <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase">Phone</div>
                   <a
                     href="tel:+919657312456"
-                    className="text-sm font-semibold text-white hover:text-indigo-300 transition-colors"
+                    className="text-sm font-semibold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors"
                   >
                     +91 9657312456
                   </a>
@@ -120,13 +120,13 @@ export const Contact: React.FC = () => {
               </div>
 
               {/* Location Card */}
-              <div className="p-4 rounded-2xl bg-[#0D1117]/80 border border-white/[0.08] flex items-center gap-3 hover:border-emerald-500/30 transition-all">
-                <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <div className="p-4 rounded-2xl bg-white dark:bg-[#0D1117]/80 border border-slate-200/80 dark:border-white/[0.08] shadow-sm flex items-center gap-3 hover:border-emerald-500/40 transition-all">
+                <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border border-emerald-500/20">
                   <MapPin size={18} />
                 </div>
                 <div>
-                  <div className="text-[11px] font-mono text-slate-400 uppercase">Location</div>
-                  <div className="text-sm font-semibold text-white">
+                  <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase">Location</div>
+                  <div className="text-sm font-semibold text-slate-900 dark:text-white">
                     Pune, Maharashtra, India
                   </div>
                 </div>
@@ -134,9 +134,9 @@ export const Contact: React.FC = () => {
             </div>
 
             {/* Availability status badge */}
-            <div className="p-4 rounded-2xl bg-emerald-500/[0.06] border border-emerald-500/20 flex items-center gap-3">
-              <div className="w-3 h-3 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
-              <div className="text-xs font-mono text-emerald-300">
+            <div className="p-4 rounded-2xl bg-emerald-500/[0.08] border border-emerald-500/25 flex items-center gap-3">
+              <div className="w-3 h-3 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse flex-shrink-0" />
+              <div className="text-xs font-mono text-emerald-700 dark:text-emerald-300 font-semibold">
                 Currently actively evaluating senior cross-platform &amp; mobile roles.
               </div>
             </div>
@@ -148,20 +148,20 @@ export const Contact: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="p-8 rounded-3xl bg-[#0D1117]/90 border border-white/[0.1] backdrop-blur-xl shadow-2xl"
+              className="p-8 rounded-3xl bg-white dark:bg-[#0D1117]/90 border border-slate-200/90 dark:border-white/[0.1] backdrop-blur-xl shadow-lg dark:shadow-2xl"
             >
-              <h3 className="text-xl font-bold text-white tracking-tight mb-2 flex items-center gap-2">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight mb-2 flex items-center gap-2">
                 Send a Direct Message
-                <Sparkles size={16} className="text-cyan-400" />
+                <Sparkles size={16} className="text-cyan-500 dark:text-cyan-400" />
               </h3>
-              <p className="text-xs text-slate-400 mb-6">
+              <p className="text-xs text-slate-600 dark:text-slate-400 mb-6">
                 Fill out the form below or email me directly at{' '}
-                <span className="text-cyan-400 font-mono">adityavishwakarma355@gmail.com</span>
+                <span className="text-cyan-600 dark:text-cyan-400 font-mono font-semibold">adityavishwakarma355@gmail.com</span>
               </p>
 
               {submitted && (
-                <div className="mb-6 p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-sm flex items-center gap-2">
-                  <Check size={18} className="text-emerald-400 flex-shrink-0" />
+                <div className="mb-6 p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-sm flex items-center gap-2">
+                  <Check size={18} className="text-emerald-500 dark:text-emerald-400 flex-shrink-0" />
                   <span>Thank you! Your message has been received. I'll get back to you shortly.</span>
                 </div>
               )}
@@ -169,7 +169,7 @@ export const Contact: React.FC = () => {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono text-slate-400 mb-1.5 uppercase">
+                    <label className="block text-xs font-mono text-slate-600 dark:text-slate-400 mb-1.5 uppercase">
                       Your Name
                     </label>
                     <input
@@ -178,12 +178,12 @@ export const Contact: React.FC = () => {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="e.g. Alex Mercer"
-                      className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono text-slate-400 mb-1.5 uppercase">
+                    <label className="block text-xs font-mono text-slate-600 dark:text-slate-400 mb-1.5 uppercase">
                       Email Address
                     </label>
                     <input
@@ -192,13 +192,13 @@ export const Contact: React.FC = () => {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="e.g. alex@company.com"
-                      className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono text-slate-400 mb-1.5 uppercase">
+                  <label className="block text-xs font-mono text-slate-600 dark:text-slate-400 mb-1.5 uppercase">
                     Subject
                   </label>
                   <input
@@ -207,12 +207,12 @@ export const Contact: React.FC = () => {
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     placeholder="Project inquiry / Hiring opportunity"
-                    className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono text-slate-400 mb-1.5 uppercase">
+                  <label className="block text-xs font-mono text-slate-600 dark:text-slate-400 mb-1.5 uppercase">
                     Message
                   </label>
                   <textarea
@@ -221,7 +221,7 @@ export const Contact: React.FC = () => {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Tell me about your project, timeline, or role..."
-                    className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all resize-none"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all resize-none"
                   />
                 </div>
 

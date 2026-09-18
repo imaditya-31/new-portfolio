@@ -34,20 +34,20 @@ export const Projects: React.FC = () => {
             <FolderGit2 size={12} className="mr-1" />
             Engineering Portfolio
           </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-            Production Applications &{' '}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-400">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            Production Applications &amp;{' '}
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 dark:from-cyan-400 dark:to-indigo-400">
               Systems
             </span>
           </h2>
-          <p className="text-slate-400 text-sm sm:text-base max-w-xl mt-3">
+          <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base max-w-xl mt-3">
             Production Flutter architectures deployed across fintech, digital lending, communities, and store releases.
           </p>
         </div>
 
         {/* Filter Category Tabs */}
         <div className="flex justify-center mb-12">
-          <div className="inline-flex p-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] backdrop-blur-md flex-wrap justify-center gap-1">
+          <div className="inline-flex p-1.5 rounded-full bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] backdrop-blur-md flex-wrap justify-center gap-1">
             {filterTabs.map((tab) => {
               const isActive = activeCategory === tab.id;
               return (
@@ -55,7 +55,9 @@ export const Projects: React.FC = () => {
                   key={tab.id}
                   onClick={() => setActiveCategory(tab.id)}
                   className={`relative px-4 py-2 rounded-full text-xs font-medium transition-all duration-200 cursor-pointer ${
-                    isActive ? 'text-white' : 'text-slate-400 hover:text-slate-200'
+                    isActive
+                      ? 'text-slate-900 dark:text-white font-semibold'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                   }`}
                 >
                   {isActive && (
@@ -86,7 +88,7 @@ export const Projects: React.FC = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
-                className="group relative rounded-3xl bg-[#0D1117]/80 border border-white/[0.08] hover:border-cyan-500/40 transition-all duration-300 backdrop-blur-xl p-6 flex flex-col justify-between hover:shadow-[0_0_30px_rgba(6,182,212,0.12)] hover:-translate-y-1"
+                className="group relative rounded-3xl bg-white dark:bg-[#0D1117]/80 border border-slate-200/80 dark:border-white/[0.08] hover:border-cyan-500/40 transition-all duration-300 backdrop-blur-xl p-6 flex flex-col justify-between shadow-sm hover:shadow-xl dark:shadow-none dark:hover:shadow-[0_0_30px_rgba(6,182,212,0.12)] hover:-translate-y-1"
               >
                 {/* Header info */}
                 <div>
@@ -95,27 +97,27 @@ export const Projects: React.FC = () => {
                       {project.status}
                     </Badge>
                     {project.company && (
-                      <span className="text-[11px] font-mono text-slate-400 truncate max-w-[150px]">
+                      <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 truncate max-w-[150px]">
                         {project.company}
                       </span>
                     )}
                   </div>
 
-                  <h3 className="text-xl font-bold text-white tracking-tight group-hover:text-cyan-300 transition-colors">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-xs font-medium text-cyan-400/90 mt-1 mb-3">
+                  <p className="text-xs font-medium text-cyan-600 dark:text-cyan-400/90 mt-1 mb-3">
                     {project.tagline}
                   </p>
-                  <p className="text-xs text-slate-300 line-clamp-3 leading-relaxed mb-4">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-3 leading-relaxed mb-4">
                     {project.description}
                   </p>
 
                   {/* Highlights / Metric pill */}
                   {project.metrics && project.metrics.length > 0 && (
-                    <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] flex items-center gap-2 mb-4">
-                      <ShieldCheck size={14} className="text-cyan-400 flex-shrink-0" />
-                      <span className="text-[11px] font-mono text-slate-200 truncate">
+                    <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.06] flex items-center gap-2 mb-4">
+                      <ShieldCheck size={14} className="text-cyan-500 dark:text-cyan-400 flex-shrink-0" />
+                      <span className="text-[11px] font-mono text-slate-700 dark:text-slate-200 truncate font-medium">
                         {project.metrics[0]}
                       </span>
                     </div>
@@ -128,19 +130,19 @@ export const Projects: React.FC = () => {
                     {project.technologies.slice(0, 4).map((tech) => (
                       <span
                         key={tech}
-                        className="px-2.5 py-0.5 rounded-lg bg-white/[0.04] text-slate-300 text-[10px] font-mono border border-white/[0.06]"
+                        className="px-2.5 py-0.5 rounded-lg bg-slate-100 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 text-[10px] font-mono border border-slate-200 dark:border-white/[0.06]"
                       >
                         {tech}
                       </span>
                     ))}
                     {project.technologies.length > 4 && (
-                      <span className="px-2 py-0.5 rounded-lg bg-white/[0.04] text-slate-400 text-[10px] font-mono">
+                      <span className="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-white/[0.04] text-slate-500 dark:text-slate-400 text-[10px] font-mono">
                         +{project.technologies.length - 4}
                       </span>
                     )}
                   </div>
 
-                  <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between">
+                  <div className="pt-3 border-t border-slate-200 dark:border-white/[0.06] flex items-center justify-between">
                     <button
                       onClick={() => setSelectedProject(project)}
                       className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 cursor-pointer transition-colors group-hover:underline"
