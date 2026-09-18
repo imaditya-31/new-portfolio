@@ -17,19 +17,19 @@ export const SkillsBento: React.FC = () => {
   const getIcon = (iconName: string) => {
     switch (iconName) {
       case 'Smartphone':
-        return <Smartphone size={20} className="text-cyan-400" />;
+        return <Smartphone size={20} className="text-cyan-600 dark:text-cyan-400" />;
       case 'Layers':
-        return <Layers size={20} className="text-indigo-400" />;
+        return <Layers size={20} className="text-indigo-600 dark:text-indigo-400" />;
       case 'CreditCard':
-        return <CreditCard size={20} className="text-emerald-400" />;
+        return <CreditCard size={20} className="text-emerald-600 dark:text-emerald-400" />;
       case 'Cloud':
-        return <Cloud size={20} className="text-amber-400" />;
+        return <Cloud size={20} className="text-amber-600 dark:text-amber-400" />;
       case 'ShieldCheck':
-        return <ShieldCheck size={20} className="text-rose-400" />;
+        return <ShieldCheck size={20} className="text-rose-600 dark:text-rose-400" />;
       case 'Palette':
-        return <Palette size={20} className="text-purple-400" />;
+        return <Palette size={20} className="text-purple-600 dark:text-purple-400" />;
       default:
-        return <Sparkles size={20} className="text-cyan-400" />;
+        return <Sparkles size={20} className="text-cyan-600 dark:text-cyan-400" />;
     }
   };
 
@@ -92,7 +92,7 @@ export const SkillsBento: React.FC = () => {
                       }`}
                     >
                       {skill.highlight && (
-                        <CheckCircle2 size={12} className="text-cyan-400 flex-shrink-0" />
+                        <CheckCircle2 size={12} className="text-cyan-600 dark:text-cyan-400 flex-shrink-0" />
                       )}
                       <span>{skill.name}</span>
                     </span>
@@ -101,9 +101,9 @@ export const SkillsBento: React.FC = () => {
               </div>
 
               {/* Bottom Subtle Bar */}
-              <div className="mt-6 pt-3 border-t border-white/[0.04] flex items-center justify-between text-[10px] font-mono text-slate-500">
+              <div className="mt-6 pt-3 border-t border-slate-200/80 dark:border-white/[0.06] flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-slate-400">
                 <span>Production Verified</span>
-                <span className="text-cyan-400">● 60 FPS Optimized</span>
+                <span className="text-cyan-600 dark:text-cyan-400 font-medium">● 60 FPS Optimized</span>
               </div>
             </motion.div>
           ))}

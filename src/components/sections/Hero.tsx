@@ -33,15 +33,15 @@ export const Hero: React.FC<HeroProps> = ({ onResumeClick }) => {
             className="lg:col-span-7 flex flex-col items-start text-left"
           >
             {/* Top Eyebrow Tag */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-600 dark:text-cyan-300 text-xs font-mono mb-6 backdrop-blur-md shadow-[0_0_15px_rgba(6,182,212,0.15)]">
-              <Sparkles size={14} className="text-cyan-500 dark:text-cyan-400" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/[0.08] dark:bg-cyan-500/10 border border-cyan-500/25 dark:border-cyan-500/30 text-cyan-700 dark:text-cyan-300 text-xs font-mono mb-6 backdrop-blur-md">
+              <Sparkles size={14} className="text-cyan-600 dark:text-cyan-400" />
               <span>Fintech &amp; Cross-Platform Mobile Engineer</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.15] mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.12] mb-6">
               Engineering{' '}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 dark:from-cyan-400 dark:via-blue-500 dark:to-indigo-500 glow-text-cyan">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 dark:from-cyan-400 dark:via-blue-400 dark:to-indigo-400">
                 High-Performance
               </span>{' '}
               Mobile Systems with Flutter.
@@ -50,12 +50,12 @@ export const Hero: React.FC<HeroProps> = ({ onResumeClick }) => {
             {/* Narrative Subtitle */}
             <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mb-8">
               Specialized in production-grade mobile applications across{' '}
-              <span className="text-cyan-600 dark:text-cyan-300 font-semibold">BBPS utility payments</span>,{' '}
-              <span className="text-indigo-600 dark:text-indigo-300 font-semibold">digital lending</span>, and{' '}
-              <span className="text-emerald-600 dark:text-emerald-300 font-semibold">biometric banking</span>. 
+              <strong className="text-slate-900 dark:text-white font-semibold">BBPS utility payments</strong>,{' '}
+              <strong className="text-slate-900 dark:text-white font-semibold">digital lending</strong>, and{' '}
+              <strong className="text-slate-900 dark:text-white font-semibold">biometric banking</strong>.{' '}
               Proven expertise architecting scalable solutions with BLoC, Clean Architecture, and slashing production crashes from{' '}
-              <span className="text-slate-900 dark:text-white font-mono bg-slate-200/80 dark:bg-white/[0.08] px-1.5 py-0.5 rounded border border-slate-300 dark:border-white/10 font-bold">
-                20,000 to &lt;500
+              <span className="inline-flex items-center font-mono font-bold text-xs sm:text-sm px-2 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/25 text-emerald-700 dark:text-emerald-300">
+                20,000 → &lt;500
               </span>.
             </p>
 

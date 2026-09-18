@@ -28,15 +28,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variantStyles = {
       primary:
-        'bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white font-medium shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] border border-white/20',
+        'bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 dark:from-cyan-500 dark:via-blue-500 dark:to-indigo-500 text-white font-semibold shadow-[0_4px_14px_rgba(6,182,212,0.3)] hover:shadow-[0_6px_20px_rgba(6,182,212,0.45)] border border-white/20',
       secondary:
-        'bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.14] text-slate-800 dark:text-white font-medium border border-slate-200 dark:border-white/[0.12] backdrop-blur-md',
+        'bg-white hover:bg-slate-50 dark:bg-white/[0.08] dark:hover:bg-white/[0.14] text-slate-800 dark:text-white font-medium border border-slate-200/90 dark:border-white/[0.12] shadow-sm dark:shadow-none backdrop-blur-md',
       outline:
-        'bg-transparent hover:bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/40 hover:border-cyan-500 shadow-sm',
+        'bg-transparent hover:bg-cyan-50 dark:hover:bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border border-cyan-500/40 hover:border-cyan-600 dark:hover:border-cyan-400 font-medium',
       ghost:
-        'bg-transparent hover:bg-slate-100 dark:hover:bg-white/[0.06] text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white',
+        'bg-transparent hover:bg-slate-100 dark:hover:bg-white/[0.06] text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-medium',
       glow:
-        'relative bg-white dark:bg-[#0D1117] text-cyan-700 dark:text-cyan-300 border border-cyan-500/40 shadow-sm hover:border-cyan-500'
+        'relative bg-white dark:bg-[#0D1117] text-slate-900 dark:text-cyan-300 border border-slate-200/90 dark:border-cyan-500/40 shadow-sm hover:border-cyan-500 hover:text-cyan-600 dark:hover:text-cyan-300 font-medium'
     };
 
     return (

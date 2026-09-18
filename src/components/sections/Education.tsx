@@ -84,7 +84,7 @@ export const Education: React.FC = () => {
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-200 dark:border-white/[0.06] flex items-center justify-between text-xs font-mono text-slate-500">
+              <div className="mt-6 pt-4 border-t border-slate-200 dark:border-white/[0.06] flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400">
                 <span>Distinction Honors</span>
                 <span className="text-emerald-600 dark:text-emerald-400 font-semibold">● Completed</span>
               </div>

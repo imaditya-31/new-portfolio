@@ -80,7 +80,7 @@ export const Contact: React.FC = () => {
               {/* Email with 1-click copy */}
               <div className="p-4 rounded-2xl bg-white dark:bg-[#0D1117]/80 border border-slate-200/80 dark:border-white/[0.08] shadow-sm flex items-center justify-between group hover:border-cyan-500/40 transition-all">
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-500 dark:text-cyan-400 border border-cyan-500/20">
+                  <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
                     <Mail size={18} />
                   </div>
                   <div>
@@ -105,7 +105,7 @@ export const Contact: React.FC = () => {
 
               {/* Phone Card */}
               <div className="p-4 rounded-2xl bg-white dark:bg-[#0D1117]/80 border border-slate-200/80 dark:border-white/[0.08] shadow-sm flex items-center gap-3 hover:border-indigo-500/40 transition-all">
-                <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 border border-indigo-500/20">
+                <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
                   <Phone size={18} />
                 </div>
                 <div>
@@ -121,7 +121,7 @@ export const Contact: React.FC = () => {
 
               {/* Location Card */}
               <div className="p-4 rounded-2xl bg-white dark:bg-[#0D1117]/80 border border-slate-200/80 dark:border-white/[0.08] shadow-sm flex items-center gap-3 hover:border-emerald-500/40 transition-all">
-                <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border border-emerald-500/20">
+                <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                   <MapPin size={18} />
                 </div>
                 <div>

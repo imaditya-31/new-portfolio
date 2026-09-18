@@ -8,11 +8,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "#07090E",
+        background: "#090D16",
         surface: {
-          DEFAULT: "#0D1117",
-          card: "#121824",
-          elevated: "#182030"
+          DEFAULT: "#0F1420",
+          card: "#121826",
+          elevated: "#192234"
         },
         brand: {
           blue: "#3B82F6",

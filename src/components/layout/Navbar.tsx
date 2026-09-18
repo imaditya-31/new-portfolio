@@ -162,22 +162,22 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme, onResumeClic
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden mt-3 pt-3 border-t border-slate-200 dark:border-white/[0.08] flex flex-col gap-1 overflow-hidden bg-white/95 dark:bg-[#07090E]/95 rounded-xl p-3"
+              className="md:hidden mt-3 pt-3 border-t border-slate-200 dark:border-white/[0.08] flex flex-col gap-1 overflow-hidden bg-white/95 dark:bg-[#07090E]/95 rounded-xl p-3 shadow-xl dark:shadow-2xl"
             >
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollTo(item.id)}
-                  className={`text-left px-3 py-2 rounded-xl text-sm font-medium transition-colors ${
+                  className={`text-left px-3 py-2 rounded-xl text-sm font-medium transition-colors cursor-pointer ${
                     activeSection === item.id
-                      ? 'bg-cyan-500/15 text-cyan-300 font-semibold'
-                      : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
+                      ? 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-300 font-semibold'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.04]'
                   }`}
                 >
                   {item.label}
                 </button>
               ))}
-              <div className="pt-2 mt-1 border-t border-white/[0.06] flex items-center justify-between px-2">
+              <div className="pt-2 mt-1 border-t border-slate-200 dark:border-white/[0.06] flex items-center justify-between px-2">
                 <Button
                   variant="primary"
                   size="sm"

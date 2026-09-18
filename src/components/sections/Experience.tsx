@@ -122,8 +122,8 @@ export const Experience: React.FC = () => {
                   {/* Highlight Preview Pills */}
                   {exp.keyWins && exp.keyWins.length > 0 && (
                     <div className="my-3 flex flex-wrap items-center gap-2">
-                      <span className="text-[11px] font-mono text-slate-400 uppercase">Impact:</span>
-                      <span className="px-2.5 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/25 text-cyan-300 text-xs font-mono font-medium">
+                      <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase">Impact:</span>
+                      <span className="px-2.5 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/25 text-cyan-700 dark:text-cyan-300 text-xs font-mono font-semibold">
                         ⚡ {exp.keyWins[0]}
                       </span>
                     </div>
@@ -137,19 +137,19 @@ export const Experience: React.FC = () => {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="overflow-hidden pt-4 mt-4 border-t border-white/[0.08]"
+                        className="overflow-hidden pt-4 mt-4 border-t border-slate-200 dark:border-white/[0.08]"
                       >
                         {/* Key Production Wins Cards */}
                         {exp.keyWins && (
-                          <div className="mb-5 p-4 rounded-2xl bg-cyan-500/[0.04] border border-cyan-500/20">
-                            <div className="text-xs font-mono text-cyan-400 uppercase font-bold tracking-wider mb-2.5 flex items-center gap-1.5">
+                          <div className="mb-5 p-4 rounded-2xl bg-cyan-50/70 border border-cyan-200/80 dark:bg-cyan-500/[0.04] dark:border-cyan-500/20">
+                            <div className="text-xs font-mono text-cyan-700 dark:text-cyan-400 uppercase font-bold tracking-wider mb-2.5 flex items-center gap-1.5">
                               <Sparkles size={13} />
                               <span>Key Production Wins &amp; Engineering Metrics</span>
                             </div>
                             <div className="grid grid-cols-1 gap-2">
                               {exp.keyWins.map((win, i) => (
-                                <div key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200">
-                                  <CheckCircle2 size={15} className="text-emerald-400 flex-shrink-0 mt-0.5" />
+                                <div key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-200">
+                                  <CheckCircle2 size={15} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
                                   <span>{win}</span>
                                 </div>
                               ))}
@@ -159,13 +159,13 @@ export const Experience: React.FC = () => {
 
                         {/* Responsibilities */}
                         <div className="mb-5">
-                          <h4 className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-3 font-semibold">
+                          <h4 className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 font-semibold">
                             Core Engineering Responsibilities
                           </h4>
                           <ul className="space-y-2.5">
                             {exp.description.map((point, idx) => (
-                              <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-slate-300 leading-relaxed">
-                                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 flex-shrink-0 mt-2" />
+                              <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 dark:bg-cyan-400 flex-shrink-0 mt-2" />
                                 <span>{point}</span>
                               </li>
                             ))}
@@ -174,7 +174,7 @@ export const Experience: React.FC = () => {
 
                         {/* Tech Stack Pills */}
                         <div>
-                          <h4 className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-2 font-semibold">
+                          <h4 className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2 font-semibold">
                             Tech Stack &amp; Tools Deployed
                           </h4>
                           <div className="flex flex-wrap gap-1.5">

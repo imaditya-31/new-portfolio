@@ -145,7 +145,7 @@ export const Projects: React.FC = () => {
                   <div className="pt-3 border-t border-slate-200 dark:border-white/[0.06] flex items-center justify-between">
                     <button
                       onClick={() => setSelectedProject(project)}
-                      className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 cursor-pointer transition-colors group-hover:underline"
+                      className="text-xs font-semibold text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 flex items-center gap-1 cursor-pointer transition-colors group-hover:underline"
                     >
                       Architecture &amp; Specs
                       <ChevronRight size={14} />
@@ -157,7 +157,7 @@ export const Projects: React.FC = () => {
                           href={project.playStoreUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2 rounded-xl bg-white/[0.05] hover:bg-emerald-500/20 text-slate-300 hover:text-emerald-400 border border-white/[0.08] transition-colors"
+                          className="p-2 rounded-xl bg-slate-100 hover:bg-emerald-50 dark:bg-white/[0.05] dark:hover:bg-emerald-500/20 text-slate-600 hover:text-emerald-600 dark:text-slate-300 dark:hover:text-emerald-400 border border-slate-200 dark:border-white/[0.08] transition-colors"
                           aria-label="Google Play Store"
                         >
                           <ExternalLink size={14} />
@@ -168,7 +168,7 @@ export const Projects: React.FC = () => {
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-slate-300 hover:text-white border border-white/[0.08] transition-colors"
+                          className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/[0.1] text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white border border-slate-200 dark:border-white/[0.08] transition-colors"
                           aria-label="GitHub Repository"
                         >
                           <Github size={14} />
