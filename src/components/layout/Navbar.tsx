@@ -92,12 +92,6 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme, onResumeClic
                 </div>
               </div>
             </button>
-
-            {/* Live Status Pill */}
-            <div className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-mono text-emerald-600 dark:text-emerald-400">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
-              <span>Open to High-Impact Opportunities</span>
-            </div>
           </div>
 
           {/* Desktop Navigation Links */}
