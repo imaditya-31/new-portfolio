@@ -9,9 +9,11 @@ import Projects from './components/sections/Projects';
 import SkillsBento from './components/sections/SkillsBento';
 import Education from './components/sections/Education';
 import Contact from './components/sections/Contact';
+import ResumeModal from './components/ui/ResumeModal';
 
 export const App: React.FC = () => {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   useEffect(() => {
     // Check initial preference, default to dark for cyber aesthetic
@@ -40,9 +42,13 @@ export const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#07090E] text-slate-100 relative selection:bg-cyan-500/30 selection:text-cyan-300 font-sans">
       <HeroSpotlight>
-        <Navbar theme={theme} toggleTheme={toggleTheme} />
+        <Navbar
+          theme={theme}
+          toggleTheme={toggleTheme}
+          onResumeClick={() => setIsResumeOpen(true)}
+        />
         <main className="relative z-10">
-          <Hero />
+          <Hero onResumeClick={() => setIsResumeOpen(true)} />
           <MetricsBar />
           <Experience />
           <Projects />
@@ -51,6 +57,10 @@ export const App: React.FC = () => {
           <Contact />
         </main>
         <Footer />
+        <ResumeModal
+          isOpen={isResumeOpen}
+          onClose={() => setIsResumeOpen(false)}
+        />
       </HeroSpotlight>
     </div>
   );

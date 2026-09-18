@@ -6,9 +6,10 @@ import Button from '../ui/Button';
 interface NavbarProps {
   theme: string;
   toggleTheme: () => void;
+  onResumeClick: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
+export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme, onResumeClick }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -137,20 +138,17 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
               {theme === 'light' ? <Moon size={17} /> : <Sun size={17} className="text-amber-400" />}
             </button>
 
-            {/* Resume Button */}
-            <a
-              href="/assets/resume.pdf"
-              download="Aditya_Vishwakarma_Resume.pdf"
-              className="hidden sm:inline-flex"
-            >
+            {/* Interactive Code-Generated Resume Button */}
+            <div className="hidden sm:inline-flex">
               <Button
                 variant="glow"
                 size="sm"
+                onClick={onResumeClick}
                 icon={<FileDown size={14} className="text-cyan-400" />}
               >
                 Resume
               </Button>
-            </a>
+            </div>
 
             {/* Mobile Menu Trigger */}
             <button
@@ -186,15 +184,18 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
                 </button>
               ))}
               <div className="pt-2 mt-1 border-t border-white/[0.06] flex items-center justify-between px-2">
-                <a
-                  href="/assets/resume.pdf"
-                  download="Aditya_Vishwakarma_Resume.pdf"
-                  className="w-full"
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onResumeClick();
+                  }}
+                  className="w-full justify-center"
+                  icon={<FileDown size={14} />}
                 >
-                  <Button variant="primary" size="sm" className="w-full justify-center">
-                    Download Resume PDF
-                  </Button>
-                </a>
+                  View Interactive Resume
+                </Button>
               </div>
             </motion.div>
           )}

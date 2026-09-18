@@ -3,9 +3,13 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Download, Sparkles, ShieldCheck, Smartphone, Flame } from 'lucide-react';
 import Button from '../ui/Button';
 import Badge from '../ui/Badge';
-import DeviceCanvas from '../3d/DeviceCanvas';
+import InteractivePhoneMockup from '../3d/InteractivePhoneMockup';
 
-export const Hero: React.FC = () => {
+interface HeroProps {
+  onResumeClick: () => void;
+}
+
+export const Hero: React.FC<HeroProps> = ({ onResumeClick }) => {
   const scrollToProjects = () => {
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -88,20 +92,17 @@ export const Hero: React.FC = () => {
               >
                 Let's Talk
               </Button>
-              <a
-                href="/assets/resume.pdf"
-                download="Aditya_Vishwakarma_Resume.pdf"
-                className="w-full sm:w-auto"
-              >
+              <div className="w-full sm:w-auto">
                 <Button
                   variant="outline"
                   size="lg"
+                  onClick={onResumeClick}
                   icon={<Download size={16} />}
                   className="w-full"
                 >
-                  Download CV
+                  Interactive Resume
                 </Button>
-              </a>
+              </div>
             </div>
           </motion.div>
 
@@ -116,9 +117,9 @@ export const Hero: React.FC = () => {
             <div className="absolute w-72 h-72 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none -z-10" />
             <div className="absolute w-64 h-64 rounded-full bg-indigo-500/10 blur-2xl pointer-events-none -z-10" />
             
-            {/* Interactive 3D Canvas */}
+            {/* Interactive 3D Perspective Phone Showcase */}
             <div className="w-full flex justify-center">
-              <DeviceCanvas />
+              <InteractivePhoneMockup />
             </div>
           </motion.div>
         </div>
