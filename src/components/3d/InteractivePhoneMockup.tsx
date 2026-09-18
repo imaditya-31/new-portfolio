@@ -28,7 +28,13 @@ import {
   Building2,
   Gift,
   Coffee,
-  Bell
+  Bell,
+  CheckCircle2,
+  Fingerprint,
+  QrCode,
+  ShieldCheck,
+  CreditCard,
+  Sparkles
 } from 'lucide-react';
 
 /* ------------------------------------------------------------------ */
@@ -41,19 +47,21 @@ interface AppMeta {
   id: AppId;
   name: string;
   theme: 'light' | 'dark';
-  accent: string; // tailwind text/bg color token, e.g. "cyan"
+  accent: string;
   icon: React.ComponentType<{ size?: number; className?: string }>;
   islandMessage: string;
+  islandTone: 'cyan' | 'violet' | 'emerald' | 'rose';
 }
 
 const APPS: AppMeta[] = [
   {
     id: 'peys',
     name: 'Peys',
-    theme: 'light',
+    theme: 'dark',
     accent: 'cyan',
     icon: Receipt,
-    islandMessage: 'Payment successful · ₹1,249'
+    islandMessage: 'Payment successful · ₹1,249',
+    islandTone: 'cyan'
   },
   {
     id: 'prfin',
@@ -61,23 +69,26 @@ const APPS: AppMeta[] = [
     theme: 'dark',
     accent: 'violet',
     icon: TrendingUp,
-    islandMessage: 'EMI due in 3 days'
+    islandMessage: 'Credit Line Active · ₹3,50,000',
+    islandTone: 'violet'
   },
   {
     id: 'aathif',
     name: 'AathifRupay',
-    theme: 'light',
+    theme: 'dark',
     accent: 'emerald',
     icon: Building2,
-    islandMessage: 'Settlement received · ₹12,400'
+    islandMessage: 'Settlement received · ₹12,400',
+    islandTone: 'emerald'
   },
   {
     id: 'wowpe',
     name: 'WowPe',
-    theme: 'light',
+    theme: 'dark',
     accent: 'rose',
     icon: Gift,
-    islandMessage: '₹1,500 received from Rahul'
+    islandMessage: '₹250 Cashback ready to claim',
+    islandTone: 'rose'
   }
 ];
 
@@ -110,17 +121,23 @@ function useIsCoarsePointer(): boolean {
 /*  Small presentational primitives                                   */
 /* ------------------------------------------------------------------ */
 
-const StatusPill: React.FC<{ tone: 'success' | 'pending' | 'neutral'; children: React.ReactNode }> = ({
+const StatusPill: React.FC<{ tone: 'success' | 'pending' | 'cyan' | 'neutral'; children: React.ReactNode }> = ({
   tone,
   children
 }) => {
   const toneClasses =
     tone === 'success'
-      ? 'text-emerald-600 bg-emerald-500/10'
+      ? 'text-emerald-400 bg-emerald-500/15 border-emerald-500/30'
+      : tone === 'cyan'
+      ? 'text-cyan-400 bg-cyan-500/15 border-cyan-500/30'
       : tone === 'pending'
-      ? 'text-amber-600 bg-amber-500/10'
-      : 'text-slate-500 bg-slate-500/10';
-  return <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${toneClasses}`}>{children}</span>;
+      ? 'text-amber-400 bg-amber-500/15 border-amber-500/30'
+      : 'text-slate-400 bg-white/[0.06] border-white/10';
+  return (
+    <span className={`text-[9.5px] font-mono font-medium px-2 py-0.5 rounded-full border ${toneClasses}`}>
+      {children}
+    </span>
+  );
 };
 
 const TransactionRow: React.FC<{
@@ -132,22 +149,22 @@ const TransactionRow: React.FC<{
   status?: string;
   iconWrapClass?: string;
 }> = ({ icon: Icon, title, subtitle, amount, positive, status, iconWrapClass }) => (
-  <div className="flex items-center justify-between py-2 first:pt-0 last:pb-0">
+  <div className="flex items-center justify-between py-2.5 first:pt-0 last:pb-0">
     <div className="flex items-center gap-2.5 min-w-0">
-      <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${iconWrapClass ?? 'bg-slate-500/10'}`}>
-        <Icon size={14} className="text-slate-600" />
+      <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 border border-white/10 ${iconWrapClass ?? 'bg-white/[0.06]'}`}>
+        <Icon size={14} className="text-white/90" />
       </div>
       <div className="min-w-0">
-        <div className="text-[12.5px] font-medium text-slate-800 truncate">{title}</div>
-        <div className="text-[10.5px] text-slate-400 truncate">{subtitle}</div>
+        <div className="text-[12px] font-semibold text-slate-100 truncate">{title}</div>
+        <div className="text-[10px] text-slate-400 truncate">{subtitle}</div>
       </div>
     </div>
     <div className="text-right shrink-0 pl-2">
-      <div className={`text-[12.5px] font-semibold font-mono ${positive ? 'text-emerald-600' : 'text-slate-800'}`}>
+      <div className={`text-[12px] font-semibold font-mono ${positive ? 'text-emerald-400' : 'text-slate-100'}`}>
         {positive ? '+' : ''}
         {amount}
       </div>
-      {status && <StatusPill tone="success">{status}</StatusPill>}
+      {status && <div className="mt-0.5"><StatusPill tone={positive ? 'success' : 'cyan'}>{status}</StatusPill></div>}
     </div>
   </div>
 );
@@ -166,7 +183,7 @@ const MiniBarChart: React.FC<{ values: number[]; accentClass: string; animate: b
           initial={{ height: 0 }}
           animate={{ height: `${(v / max) * 100}%` }}
           transition={animate ? { duration: 0.6, delay: i * 0.05, ease: 'easeOut' } : { duration: 0 }}
-          className={`w-2 rounded-sm ${i === values.length - 1 ? accentClass : 'bg-slate-200'}`}
+          className={`w-2 rounded-t-sm ${i === values.length - 1 ? accentClass : 'bg-white/20'}`}
         />
       ))}
     </div>
@@ -179,7 +196,7 @@ const RadialGauge: React.FC<{ percent: number; accentClass: string; animate: boo
   animate
 }) => {
   const radius = 46;
-  const circumference = Math.PI * radius; // half circle
+  const circumference = Math.PI * radius;
   const offset = circumference - (percent / 100) * circumference;
   return (
     <svg viewBox="0 0 120 66" className="w-full h-auto overflow-visible">
@@ -187,14 +204,14 @@ const RadialGauge: React.FC<{ percent: number; accentClass: string; animate: boo
         d="M 10 60 A 50 50 0 0 1 110 60"
         fill="none"
         stroke="currentColor"
-        strokeWidth="8"
+        strokeWidth="7"
         strokeLinecap="round"
-        className="text-slate-100"
+        className="text-white/10"
       />
       <motion.path
         d="M 10 60 A 50 50 0 0 1 110 60"
         fill="none"
-        strokeWidth="8"
+        strokeWidth="7"
         strokeLinecap="round"
         className={accentClass}
         stroke="currentColor"
@@ -208,87 +225,104 @@ const RadialGauge: React.FC<{ percent: number; accentClass: string; animate: boo
 };
 
 /* ------------------------------------------------------------------ */
-/*  App screens                                                        */
+/*  App Screens (iOS 26 Liquid Glass Architecture)                    */
 /* ------------------------------------------------------------------ */
 
-const PeysApp: React.FC<{ animateIn: boolean }> = ({ animateIn }) => {
+const PeysApp: React.FC<{ animateIn: boolean }> = () => {
   const [selectedBiller, setSelectedBiller] = useState('Electricity');
   const billers: { label: string; icon: React.ComponentType<{ size?: number; className?: string }> }[] = [
     { label: 'Electricity', icon: Zap },
     { label: 'Mobile', icon: Smartphone },
+    { label: 'FASTag', icon: Car },
     { label: 'DTH', icon: Tv },
     { label: 'Gas', icon: Fuel },
-    { label: 'Water', icon: Droplets },
-    { label: 'FASTag', icon: Car }
+    { label: 'Water', icon: Droplets }
   ];
 
   return (
-    <div className="h-full bg-[#F7F8FA] px-4 pt-14 pb-24 overflow-y-auto no-scrollbar select-none">
-      <div className="flex items-center justify-between mb-4">
+    <div className="h-full bg-gradient-to-b from-[#070D18] via-[#091122] to-[#060910] text-white px-3.5 pt-[56px] pb-24 overflow-y-auto no-scrollbar select-none">
+      {/* App Header */}
+      <div className="flex items-center justify-between mb-3">
         <div>
-          <div className="text-[11px] text-slate-400">Good morning</div>
-          <div className="text-[15px] font-semibold text-slate-900">Aditya Sharma</div>
+          <div className="flex items-center gap-1.5">
+            <span className="text-[10px] font-mono text-cyan-400 font-medium tracking-wide uppercase">BBPS Powered</span>
+            <CheckCircle2 size={11} className="text-cyan-400" />
+          </div>
+          <div className="text-[13.5px] font-bold text-white tracking-tight">Aditya Vishwakarma</div>
         </div>
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white text-[11px] font-semibold">
-          AS
+        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-cyan-500 to-indigo-600 p-[1px] shadow-[0_0_10px_rgba(6,182,212,0.4)] shrink-0">
+          <img src="/assets/photo.jpg" alt="User" className="w-full h-full rounded-full object-cover" />
         </div>
       </div>
 
-      <div className="rounded-[22px] p-4 bg-gradient-to-br from-slate-900 to-slate-800 text-white shadow-[0_10px_30px_-10px_rgba(15,23,42,0.5)]">
-        <div className="text-[10.5px] text-slate-300">Available balance</div>
-        <div className="text-[26px] font-semibold font-mono mt-1 tracking-tight">₹24,580.50</div>
-        <div className="flex gap-4 mt-4">
+      {/* Liquid Glass Balance Hero Card */}
+      <div className="relative rounded-2xl p-4 bg-gradient-to-br from-slate-900/95 via-[#0c1833]/90 to-[#071124]/95 border border-cyan-500/30 shadow-[0_8px_24px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.2)] overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
+        <div className="flex items-center justify-between">
+          <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">Total Active Balance</span>
+          <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+            AEPS + BBPS
+          </span>
+        </div>
+        <div className="text-[24px] font-bold font-mono text-white mt-1 tracking-tight">₹48,250.75</div>
+
+        {/* Action Grid Pills */}
+        <div className="grid grid-cols-4 gap-2 mt-3.5 pt-3 border-t border-white/[0.08]">
           {[
             { label: 'Pay Bills', icon: Receipt },
-            { label: 'Recharge', icon: Smartphone },
-            { label: 'Send', icon: Send },
-            { label: 'Scan', icon: ScanLine }
+            { label: 'AEPS Cash', icon: Fingerprint },
+            { label: 'Instant DMT', icon: ArrowUpRight },
+            { label: 'Scan QR', icon: QrCode }
           ].map((a) => (
             <button
               key={a.label}
-              className="flex flex-col items-center gap-1.5 group"
+              className="flex flex-col items-center gap-1 group cursor-pointer focus:outline-none"
               aria-label={a.label}
             >
-              <motion.div
-                whileTap={{ scale: 0.9 }}
-                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-cyan-400/20 transition-colors"
-              >
-                <a.icon size={15} className="text-cyan-300" />
-              </motion.div>
-              <span className="text-[9.5px] text-slate-300">{a.label}</span>
+              <div className="w-8 h-8 rounded-xl bg-white/[0.08] hover:bg-cyan-500/20 border border-white/10 group-hover:border-cyan-500/40 flex items-center justify-center transition-all">
+                <a.icon size={13} className="text-cyan-300" />
+              </div>
+              <span className="text-[9px] font-medium text-slate-300 group-hover:text-white transition-colors">{a.label}</span>
             </button>
           ))}
         </div>
       </div>
 
-      <div className="mt-4">
-        <div className="text-[12px] font-medium text-slate-700 mb-2">Pay your bills</div>
-        <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
+      {/* Bill Payment Categories */}
+      <div className="mt-3.5">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-[11px] font-semibold text-slate-300">Quick Utility Pay</span>
+          <span className="text-[10px] font-mono text-cyan-400">View All ↗</span>
+        </div>
+        <div className="flex gap-1.5 overflow-x-auto no-scrollbar pb-1">
           {billers.map((b) => {
             const active = selectedBiller === b.label;
             return (
               <button
                 key={b.label}
                 onClick={() => setSelectedBiller(b.label)}
-                className={`flex flex-col items-center gap-1 shrink-0 px-3 py-2 rounded-2xl border transition-colors ${
-                  active ? 'bg-cyan-500 border-cyan-500' : 'bg-white border-slate-200'
+                className={`flex flex-col items-center gap-1 shrink-0 px-2.5 py-1.5 rounded-xl border transition-all cursor-pointer ${
+                  active
+                    ? 'bg-cyan-500/20 border-cyan-400/50 text-white shadow-[0_0_12px_rgba(6,182,212,0.3)]'
+                    : 'bg-white/[0.04] border-white/[0.08] text-slate-400 hover:text-white'
                 }`}
               >
-                <b.icon size={15} className={active ? 'text-white' : 'text-slate-500'} />
-                <span className={`text-[9.5px] font-medium ${active ? 'text-white' : 'text-slate-500'}`}>
-                  {b.label}
-                </span>
+                <b.icon size={13} className={active ? 'text-cyan-300' : 'text-slate-400'} />
+                <span className="text-[9px] font-medium">{b.label}</span>
               </button>
             );
           })}
         </div>
       </div>
 
-      <div className="mt-4 bg-white rounded-2xl border border-slate-100 p-3.5 divide-y divide-slate-100">
-        <div className="text-[11px] font-medium text-slate-500 pb-2">Recent payments</div>
-        <TransactionRow icon={Zap} title="Electricity" subtitle="MSEDCL" amount="₹1,249" status="Paid" iconWrapClass="bg-amber-500/10" />
-        <TransactionRow icon={Smartphone} title="Mobile recharge" subtitle="Airtel" amount="₹599" status="Successful" iconWrapClass="bg-cyan-500/10" />
-        <TransactionRow icon={Droplets} title="Water" subtitle="Municipal Corporation" amount="₹842" status="Paid" iconWrapClass="bg-blue-500/10" />
+      {/* Recent Transactions List */}
+      <div className="mt-3 rounded-2xl bg-white/[0.04] border border-white/[0.08] p-3 backdrop-blur-xl shadow-md divide-y divide-white/[0.06]">
+        <div className="text-[10.5px] font-semibold text-slate-400 pb-1.5 uppercase font-mono tracking-wider">
+          Live Transaction Ledger
+        </div>
+        <TransactionRow icon={Zap} title="Electricity Bill" subtitle="MSEDCL · Mahavitaran" amount="₹1,249" status="Paid" iconWrapClass="bg-cyan-500/20" />
+        <TransactionRow icon={Smartphone} title="Mobile Recharge" subtitle="Airtel Unlimited 5G" amount="₹599" status="Success" iconWrapClass="bg-blue-500/20" />
+        <TransactionRow icon={Landmark} title="AEPS Cash Withdrawal" subtitle="SBI · Aadhaar Auth" amount="₹2,500" positive status="Settled" iconWrapClass="bg-emerald-500/20" />
       </div>
     </div>
   );
@@ -296,40 +330,50 @@ const PeysApp: React.FC<{ animateIn: boolean }> = ({ animateIn }) => {
 
 const PrFinApp: React.FC<{ animateIn: boolean }> = ({ animateIn }) => {
   const timeline = [
-    { label: 'Loan approved', done: true },
-    { label: 'Disbursal completed', done: true },
-    { label: 'Repayment scheduled', done: true, current: true },
-    { label: 'Next EMI', done: false }
+    { label: 'eKYC & Sanction Approved', done: true },
+    { label: 'Disbursal Completed to Bank', done: true },
+    { label: 'Auto-Debit EMI Active', done: true, current: true },
+    { label: 'Final Settlement Scheduled', done: false }
   ];
 
   return (
-    <div className="h-full bg-[#0F0E17] px-4 pt-14 pb-24 overflow-y-auto no-scrollbar text-white select-none">
-      <div className="text-[10.5px] text-violet-300/80 tracking-tight">Your credit line</div>
+    <div className="h-full bg-gradient-to-b from-[#0E0B19] via-[#120F24] to-[#090712] text-white px-3.5 pt-[56px] pb-24 overflow-y-auto no-scrollbar select-none">
+      <div className="flex items-center justify-between mb-2">
+        <div className="text-[10px] font-mono text-violet-300 uppercase tracking-wider">Institutional Credit</div>
+        <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30">
+          Tier-1 Prime
+        </span>
+      </div>
 
-      <div className="mt-3 relative">
-        <RadialGauge percent={30} accentClass="text-violet-400" animate={animateIn} />
-        <div className="absolute inset-0 flex flex-col items-center justify-end pb-1">
-          <div className="text-[22px] font-semibold font-mono">₹2,50,000</div>
-          <div className="text-[10px] text-slate-400">Available credit</div>
+      {/* Radial Gauge Meter */}
+      <div className="relative rounded-2xl p-3.5 bg-gradient-to-br from-white/[0.06] to-white/[0.02] border border-violet-500/25 backdrop-blur-xl shadow-lg">
+        <RadialGauge percent={70} accentClass="text-violet-400" animate={animateIn} />
+        <div className="absolute inset-0 flex flex-col items-center justify-end pb-4">
+          <div className="text-[22px] font-bold font-mono text-white tracking-tight">₹3,50,000</div>
+          <div className="text-[9.5px] font-mono text-slate-400">Available Credit Line</div>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-2.5 mt-4">
-        <div className="rounded-xl bg-white/[0.04] border border-white/[0.06] p-2.5">
-          <div className="text-[10px] text-slate-400">Used</div>
-          <div className="text-[14px] font-semibold font-mono mt-0.5">₹74,500</div>
+      {/* Dual Metric Cards */}
+      <div className="grid grid-cols-2 gap-2 mt-2.5">
+        <div className="rounded-xl bg-white/[0.04] border border-white/[0.08] p-2.5">
+          <div className="text-[9.5px] text-slate-400 uppercase font-mono">Utilized Limit</div>
+          <div className="text-[13.5px] font-bold font-mono text-violet-300 mt-0.5">₹1,50,000</div>
         </div>
-        <div className="rounded-xl bg-white/[0.04] border border-white/[0.06] p-2.5">
-          <div className="text-[10px] text-slate-400 flex items-center gap-1">
-            <Calendar size={10} /> Next repayment
+        <div className="rounded-xl bg-white/[0.04] border border-white/[0.08] p-2.5">
+          <div className="text-[9.5px] text-slate-400 uppercase font-mono flex items-center gap-1">
+            <Calendar size={10} /> Next Repayment
           </div>
-          <div className="text-[14px] font-semibold font-mono mt-0.5">₹8,250 · Sep 28</div>
+          <div className="text-[13.5px] font-bold font-mono text-emerald-400 mt-0.5">₹12,450 · Oct 05</div>
         </div>
       </div>
 
-      <div className="mt-5">
-        <div className="text-[11px] font-medium text-slate-300 mb-2.5">Loan activity</div>
-        <div className="space-y-0">
+      {/* Loan Disbursal Pipeline */}
+      <div className="mt-3 rounded-2xl bg-white/[0.04] border border-white/[0.08] p-3 backdrop-blur-xl">
+        <div className="text-[10.5px] font-semibold text-slate-300 mb-2 font-mono uppercase tracking-wider">
+          Disbursal Pipeline
+        </div>
+        <div className="space-y-0 pl-1">
           {timeline.map((t, i) => (
             <div key={t.label} className="flex gap-2.5">
               <div className="flex flex-col items-center">
@@ -340,142 +384,158 @@ const PrFinApp: React.FC<{ animateIn: boolean }> = ({ animateIn }) => {
                 />
                 {i < timeline.length - 1 && <div className="w-px flex-1 bg-white/10 my-0.5" />}
               </div>
-              <div className={`text-[12px] pb-3 ${t.done ? 'text-slate-100' : 'text-slate-500'}`}>{t.label}</div>
+              <div className={`text-[11px] pb-2.5 ${t.done ? 'text-slate-100 font-medium' : 'text-slate-500'}`}>
+                {t.label}
+              </div>
             </div>
           ))}
         </div>
-      </div>
 
-      <motion.button
-        whileTap={{ scale: 0.97 }}
-        className="w-full mt-1 py-2.5 rounded-full bg-violet-500 text-white text-[12px] font-medium flex items-center justify-center gap-1.5"
-      >
-        Apply for funding <ArrowRight size={13} />
-      </motion.button>
+        <motion.button
+          whileTap={{ scale: 0.98 }}
+          className="w-full mt-1 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-[11px] font-semibold flex items-center justify-center gap-1.5 shadow-[0_4px_16px_rgba(124,58,237,0.3)] transition-all cursor-pointer"
+        >
+          Withdraw to Bank Account <ArrowRight size={12} />
+        </motion.button>
+      </div>
     </div>
   );
 };
 
 const AathifRupayApp: React.FC<{ animateIn: boolean }> = ({ animateIn }) => {
   const metrics = [
-    { label: 'Transactions', value: '1,248' },
-    { label: 'Successful', value: '1,231' },
-    { label: 'Pending', value: '12' },
-    { label: 'Failed', value: '5' }
+    { label: 'Transactions', value: '1,428' },
+    { label: 'Success Rate', value: '99.4%' },
+    { label: 'Pending', value: '08' },
+    { label: 'Settled Vol', value: '₹82.5K' }
   ];
   const services: { label: string; icon: React.ComponentType<{ size?: number; className?: string }> }[] = [
-    { label: 'AEPS', icon: Landmark },
-    { label: 'DMT', icon: ArrowUpRight },
-    { label: 'Recharge', icon: Smartphone },
-    { label: 'Bill Pay', icon: Receipt },
-    { label: 'Settlement', icon: Building2 }
+    { label: 'AEPS Cash', icon: Fingerprint },
+    { label: 'Instant DMT', icon: ArrowUpRight },
+    { label: 'Micro ATM', icon: Landmark },
+    { label: 'QR Collect', icon: QrCode }
   ];
 
   return (
-    <div className="h-full bg-[#F4F6F5] px-4 pt-14 pb-24 overflow-y-auto no-scrollbar select-none">
-      <div className="flex items-center justify-between">
+    <div className="h-full bg-gradient-to-b from-[#07130F] via-[#0A1813] to-[#040C09] text-white px-3.5 pt-[56px] pb-24 overflow-y-auto no-scrollbar select-none">
+      <div className="flex items-center justify-between mb-2">
         <div>
-          <div className="text-[11px] text-slate-400">Good morning, Rahul</div>
-          <div className="text-[10.5px] text-slate-400">Today&apos;s earnings</div>
-          <div className="text-[22px] font-semibold font-mono text-slate-900 mt-0.5">₹48,250.80</div>
+          <div className="text-[9.5px] font-mono text-emerald-400 uppercase tracking-wider">Merchant Terminal #4892</div>
+          <div className="text-[20px] font-bold font-mono text-white mt-0.5">₹84,290.00</div>
         </div>
-        <span className="text-[10.5px] font-semibold text-emerald-600 bg-emerald-500/10 px-2 py-1 rounded-full">
-          +12.8%
+        <span className="text-[10px] font-semibold text-emerald-300 bg-emerald-500/20 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+          +14.2% Today
         </span>
       </div>
 
-      <div className="mt-3 bg-white rounded-2xl border border-slate-100 p-3 flex items-end justify-between">
-        <MiniBarChart values={[32, 40, 28, 55, 46, 60, 48]} accentClass="bg-emerald-500" animate={animateIn} />
+      {/* 7-Day Sparkline Revenue Chart */}
+      <div className="rounded-2xl bg-white/[0.04] border border-emerald-500/20 p-3 flex items-end justify-between backdrop-blur-xl shadow-md">
+        <MiniBarChart values={[38, 45, 32, 60, 52, 75, 68]} accentClass="bg-emerald-400" animate={animateIn} />
         <div className="text-right">
-          <div className="text-[9.5px] text-slate-400">Last 7 days</div>
+          <div className="text-[9px] font-mono text-slate-400 uppercase">Weekly Volume</div>
+          <div className="text-[11px] font-bold font-mono text-emerald-300">₹4.82 Lakhs</div>
         </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-1.5 mt-3">
+      {/* 4 Performance Metric Badges */}
+      <div className="grid grid-cols-4 gap-1.5 mt-2.5">
         {metrics.map((m) => (
-          <div key={m.label} className="rounded-xl bg-white border border-slate-100 py-2 px-1 text-center">
-            <div className="text-[12px] font-semibold font-mono text-slate-800">{m.value}</div>
-            <div className="text-[8.5px] text-slate-400 mt-0.5 leading-tight">{m.label}</div>
+          <div key={m.label} className="rounded-xl bg-white/[0.04] border border-white/[0.08] py-2 px-1 text-center">
+            <div className="text-[11.5px] font-bold font-mono text-white">{m.value}</div>
+            <div className="text-[8px] text-slate-400 mt-0.5 leading-tight uppercase font-mono">{m.label}</div>
           </div>
         ))}
       </div>
 
-      <div className="mt-3">
-        <div className="flex gap-2 overflow-x-auto no-scrollbar">
+      {/* Core Terminal Services */}
+      <div className="mt-2.5">
+        <div className="grid grid-cols-4 gap-1.5">
           {services.map((s) => (
-            <div key={s.label} className="flex flex-col items-center gap-1 shrink-0">
-              <div className="w-9 h-9 rounded-full bg-emerald-500/10 flex items-center justify-center">
-                <s.icon size={14} className="text-emerald-600" />
+            <div key={s.label} className="flex flex-col items-center gap-1 p-2 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+              <div className="w-7 h-7 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+                <s.icon size={13} className="text-emerald-300" />
               </div>
-              <span className="text-[8.5px] text-slate-500">{s.label}</span>
+              <span className="text-[8.5px] font-medium text-slate-300">{s.label}</span>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="mt-3 bg-white rounded-2xl border border-slate-100 p-3.5 divide-y divide-slate-100">
-        <div className="text-[11px] font-medium text-slate-500 pb-2">Transaction feed</div>
-        <TransactionRow icon={Landmark} title="AEPS withdrawal" subtitle="Biometric auth" amount="₹8,500" status="Success" iconWrapClass="bg-emerald-500/10" />
-        <TransactionRow icon={ArrowUpRight} title="DMT transfer" subtitle="To 98XXXXXX21" amount="₹12,000" status="Success" iconWrapClass="bg-teal-500/10" />
-        <TransactionRow icon={Smartphone} title="Mobile recharge" subtitle="Jio · Prepaid" amount="₹399" status="Success" iconWrapClass="bg-slate-500/10" />
+      {/* Live Settlement Feed */}
+      <div className="mt-2.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] p-3 backdrop-blur-xl shadow-md divide-y divide-white/[0.06]">
+        <div className="text-[10px] font-semibold text-slate-400 pb-1.5 uppercase font-mono tracking-wider">
+          Real-time Settlements
+        </div>
+        <TransactionRow icon={Landmark} title="AEPS Biometric Cashout" subtitle="Terminal Auto-credit" amount="₹8,500" positive status="Settled" iconWrapClass="bg-emerald-500/20" />
+        <TransactionRow icon={ArrowUpRight} title="DMT Instant Transfer" subtitle="Beneficiary Account" amount="₹12,000" positive status="Settled" iconWrapClass="bg-teal-500/20" />
+        <TransactionRow icon={Smartphone} title="Jio 5G Prepaid Plan" subtitle="Commercial Agent Comm" amount="₹399" positive status="Settled" iconWrapClass="bg-slate-500/20" />
       </div>
     </div>
   );
 };
 
 const WowPeApp: React.FC<{ animateIn: boolean }> = ({ animateIn }) => (
-  <div className="h-full bg-gradient-to-b from-[#FFF1F2] to-[#FDF2F8] px-4 pt-14 pb-24 overflow-y-auto no-scrollbar select-none">
+  <div className="h-full bg-gradient-to-b from-[#180A10] via-[#1A0C14] to-[#0F050A] text-white px-3.5 pt-[56px] pb-24 overflow-y-auto no-scrollbar select-none">
     <div className="flex items-center justify-between">
-      <div className="text-[15px] font-semibold text-slate-900">Hey Aditya 👋</div>
-      <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-rose-100">
-        <Bell size={14} className="text-rose-500" />
+      <div>
+        <div className="text-[10px] font-mono text-rose-400 uppercase tracking-wider">Fast UPI Wallet</div>
+        <div className="text-[14px] font-bold text-white">Hey Aditya 👋</div>
+      </div>
+      <div className="w-7 h-7 rounded-full bg-white/[0.08] border border-rose-500/30 flex items-center justify-center">
+        <Bell size={13} className="text-rose-400" />
       </div>
     </div>
-    <div className="text-[10.5px] text-slate-400 mt-2">Wallet balance</div>
-    <div className="text-[26px] font-semibold font-mono text-slate-900 tracking-tight">₹8,420</div>
 
+    <div className="mt-2.5 rounded-2xl p-3.5 bg-gradient-to-br from-rose-950/80 to-pink-950/80 border border-rose-500/30 backdrop-blur-xl shadow-md">
+      <div className="text-[9.5px] font-mono text-rose-300/80 uppercase">Available UPI Balance</div>
+      <div className="text-[24px] font-bold font-mono text-white mt-0.5 tracking-tight">₹18,420.50</div>
+    </div>
+
+    {/* Unlocked Reward Card */}
     <motion.div
-      initial={animateIn ? { opacity: 0, y: 8 } : false}
+      initial={animateIn ? { opacity: 0, y: 6 } : false}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.15, duration: 0.4 }}
-      className="mt-4 rounded-2xl p-3.5 bg-gradient-to-r from-rose-500 to-pink-500 text-white flex items-center justify-between overflow-hidden relative"
+      transition={{ delay: 0.1, duration: 0.3 }}
+      className="mt-2.5 rounded-2xl p-3 bg-gradient-to-r from-rose-600/90 to-pink-600/90 text-white flex items-center justify-between overflow-hidden shadow-lg border border-white/20"
     >
       <div>
-        <div className="text-[12px] font-medium">₹120 cashback unlocked</div>
-        <div className="text-[9.5px] text-rose-100 mt-0.5">Use before it expires</div>
+        <div className="text-[11.5px] font-bold">₹250 Cashback Unlocked</div>
+        <div className="text-[9px] text-rose-100 font-mono mt-0.5">Applies on upcoming Bus / Hotel Booking</div>
       </div>
       <motion.div
-        animate={{ rotate: [0, 15, 0], scale: [1, 1.15, 1] }}
-        transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+        animate={{ rotate: [0, 12, 0], scale: [1, 1.1, 1] }}
+        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center"
       >
-        <Gift size={20} className="text-white/90" />
+        <Gift size={16} className="text-white" />
       </motion.div>
     </motion.div>
 
-    <div className="flex justify-between mt-4 px-1">
+    {/* 4 UPI Actions */}
+    <div className="grid grid-cols-4 gap-1.5 mt-2.5">
       {[
-        { label: 'Send', icon: Send },
-        { label: 'Scan', icon: ScanLine },
+        { label: 'Pay Contacts', icon: Send },
+        { label: 'Scan QR', icon: ScanLine },
         { label: 'Recharge', icon: Smartphone },
-        { label: 'Bills', icon: Receipt }
+        { label: 'Utility Bills', icon: Receipt }
       ].map((a) => (
-        <button key={a.label} className="flex flex-col items-center gap-1.5" aria-label={a.label}>
-          <motion.div
-            whileTap={{ scale: 0.9 }}
-            className="w-10 h-10 rounded-2xl bg-white shadow-sm border border-rose-100 flex items-center justify-center"
-          >
-            <a.icon size={15} className="text-rose-500" />
-          </motion.div>
-          <span className="text-[9.5px] text-slate-500">{a.label}</span>
+        <button key={a.label} className="flex flex-col items-center gap-1 p-2 rounded-xl bg-white/[0.04] border border-white/[0.08]" aria-label={a.label}>
+          <div className="w-7 h-7 rounded-lg bg-rose-500/20 flex items-center justify-center">
+            <a.icon size={13} className="text-rose-300" />
+          </div>
+          <span className="text-[8.5px] font-medium text-slate-300">{a.label}</span>
         </button>
       ))}
     </div>
 
-    <div className="mt-4 bg-white/70 backdrop-blur rounded-2xl border border-rose-100/60 p-3.5 divide-y divide-rose-100/60">
-      <div className="text-[11px] font-medium text-slate-500 pb-2">Recent activity</div>
-      <TransactionRow icon={ArrowDownLeft} title="Received from Rahul" subtitle="UPI transfer" amount="₹1,500" positive status="" iconWrapClass="bg-emerald-500/10" />
-      <TransactionRow icon={Coffee} title="Coffee" subtitle="Third Wave Coffee" amount="₹240" iconWrapClass="bg-amber-500/10" />
-      <TransactionRow icon={Smartphone} title="Mobile recharge" subtitle="Vi · Prepaid" amount="₹299" iconWrapClass="bg-slate-500/10" />
+    {/* Recent Activity */}
+    <div className="mt-2.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] p-3 backdrop-blur-xl shadow-md divide-y divide-white/[0.06]">
+      <div className="text-[10px] font-semibold text-slate-400 pb-1.5 uppercase font-mono tracking-wider">
+        Recent Activity
+      </div>
+      <TransactionRow icon={ArrowDownLeft} title="Received from Rahul" subtitle="UPI Transfer · Axis Bank" amount="₹2,500" positive status="Received" iconWrapClass="bg-emerald-500/20" />
+      <TransactionRow icon={Coffee} title="Third Wave Coffee" subtitle="Merchant QR Payment" amount="₹240" status="Paid" iconWrapClass="bg-amber-500/20" />
+      <TransactionRow icon={Smartphone} title="Vi Unlimited 5G Plan" subtitle="Prepaid Recharge" amount="₹299" status="Success" iconWrapClass="bg-slate-500/20" />
     </div>
   </div>
 );
@@ -484,40 +544,53 @@ const WowPeApp: React.FC<{ animateIn: boolean }> = ({ animateIn }) => (
 /*  Dynamic Island (Interactive Spring Pill)                           */
 /* ------------------------------------------------------------------ */
 
-const DynamicIsland: React.FC<{ message: string }> = ({ message }) => {
+const DynamicIsland: React.FC<{ message: string; tone: 'cyan' | 'violet' | 'emerald' | 'rose' }> = ({
+  message,
+  tone
+}) => {
   const [expanded, setExpanded] = useState(false);
+
+  const dotColor =
+    tone === 'cyan'
+      ? 'bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.8)]'
+      : tone === 'violet'
+      ? 'bg-violet-400 shadow-[0_0_8px_rgba(167,139,250,0.8)]'
+      : tone === 'emerald'
+      ? 'bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]'
+      : 'bg-rose-400 shadow-[0_0_8px_rgba(251,113,133,0.8)]';
+
   return (
     <div className="flex justify-center">
       <motion.button
-        aria-label={expanded ? 'Collapse status' : 'Expand status'}
+        aria-label={expanded ? 'Collapse dynamic island' : 'Expand dynamic island'}
         onClick={() => setExpanded((e) => !e)}
         animate={{
-          width: expanded ? 214 : 96,
-          height: expanded ? 32 : 24
+          width: expanded ? 210 : 92,
+          height: expanded ? 30 : 22
         }}
         transition={{ type: 'spring', stiffness: 420, damping: 28 }}
-        className="bg-black text-white rounded-full flex items-center justify-between px-2.5 overflow-hidden shadow-md border border-white/[0.08] cursor-pointer"
+        className="bg-black text-white rounded-full flex items-center justify-between px-2.5 overflow-hidden shadow-md border border-white/[0.1] cursor-pointer focus:outline-none"
       >
         {expanded ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.08 }}
+            transition={{ delay: 0.06 }}
             className="flex items-center gap-1.5 w-full justify-between"
           >
             <div className="flex items-center gap-1.5 min-w-0">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0 animate-pulse" />
-              <span className="text-[10px] text-white font-medium truncate">{message}</span>
+              <span className={`w-2 h-2 rounded-full ${dotColor} shrink-0`} />
+              <span className="text-[9.5px] font-mono text-white font-medium truncate">{message}</span>
             </div>
           </motion.div>
         ) : (
           <>
-            {/* Front Camera Lens Dot */}
-            <div className="w-2.5 h-2.5 rounded-full bg-[#0a0f1d] ring-1 ring-white/10 flex items-center justify-center">
+            {/* Front Camera Lens Aperture */}
+            <div className="w-2.5 h-2.5 rounded-full bg-[#080d1a] ring-1 ring-white/10 flex items-center justify-center">
               <div className="w-1 h-1 rounded-full bg-[#1e293b]" />
             </div>
-            {/* Ambient Pulse Dot */}
-            <div className="w-1.5 h-1.5 rounded-full bg-cyan-400/80 animate-pulse" />
+            {/* Active Optical Ambient Dot */}
+            <div className={`w-1.5 h-1.5 rounded-full ${dotColor}`} />
           </>
         )}
       </motion.button>
@@ -526,11 +599,11 @@ const DynamicIsland: React.FC<{ message: string }> = ({ message }) => {
 };
 
 /* ------------------------------------------------------------------ */
-/*  App Dock (Floating Frosted Switcher)                              */
+/*  iOS 26 Liquid Glass App Dock                                      */
 /* ------------------------------------------------------------------ */
 
 const AppDock: React.FC<{ activeApp: AppId; onSelect: (id: AppId) => void }> = ({ activeApp, onSelect }) => (
-  <div className="px-2 py-1.5 rounded-2xl bg-black/75 backdrop-blur-xl border border-white/[0.12] shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+  <div className="px-1.5 py-1 rounded-2xl bg-black/60 backdrop-blur-2xl border border-white/[0.14] shadow-[0_10px_30px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.2)]">
     <div className="grid grid-cols-4 gap-1 items-center">
       {APPS.map((app) => {
         const active = app.id === activeApp;
@@ -546,12 +619,12 @@ const AppDock: React.FC<{ activeApp: AppId; onSelect: (id: AppId) => void }> = (
             {active && (
               <motion.div
                 layoutId="dock-pill"
-                transition={{ type: 'spring', stiffness: 450, damping: 35 }}
-                className="absolute inset-0 rounded-xl bg-white/[0.14] border border-white/10"
+                transition={{ type: 'spring', stiffness: 450, damping: 32 }}
+                className="absolute inset-0 rounded-xl bg-white/[0.16] border border-white/20 shadow-[0_2px_8px_rgba(0,0,0,0.3),inset_0_1px_1px_rgba(255,255,255,0.3)] backdrop-blur-md"
               />
             )}
-            <app.icon size={13} className={active ? 'text-cyan-400' : 'opacity-80'} />
-            <span className="text-[9px] font-medium leading-none tracking-tight relative z-10 font-mono">
+            <app.icon size={13} className={active ? 'text-cyan-300' : 'opacity-70'} />
+            <span className="text-[9px] font-semibold leading-none tracking-tight relative z-10 font-mono">
               {app.name}
             </span>
           </button>
@@ -566,9 +639,9 @@ const AppDock: React.FC<{ activeApp: AppId; onSelect: (id: AppId) => void }> = (
 /* ------------------------------------------------------------------ */
 
 const slideVariants: Variants = {
-  enter: (direction: number) => ({ x: direction > 0 ? 32 : -32, opacity: 0, scale: 0.98 }),
+  enter: (direction: number) => ({ x: direction > 0 ? 30 : -30, opacity: 0, scale: 0.98 }),
   center: { x: 0, opacity: 1, scale: 1 },
-  exit: (direction: number) => ({ x: direction > 0 ? -32 : 32, opacity: 0, scale: 0.98 })
+  exit: (direction: number) => ({ x: direction > 0 ? -30 : 30, opacity: 0, scale: 0.98 })
 };
 
 export const InteractivePhoneMockup: React.FC = () => {
@@ -584,8 +657,8 @@ export const InteractivePhoneMockup: React.FC = () => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [7, -7]), { stiffness: 150, damping: 20 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-9, 9]), { stiffness: 150, damping: 20 });
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), { stiffness: 160, damping: 22 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), { stiffness: 160, damping: 22 });
   const glareX = useSpring(useTransform(mouseX, [-0.5, 0.5], [20, 80]), { stiffness: 200, damping: 25 });
   const glareY = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, 60]), { stiffness: 200, damping: 25 });
 
@@ -620,49 +693,44 @@ export const InteractivePhoneMockup: React.FC = () => {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full max-w-[420px] mx-auto py-8 flex items-center justify-center select-none"
+      className="relative w-full max-w-[380px] mx-auto py-4 sm:py-6 flex items-center justify-center select-none"
       style={{ perspective: 1400 }}
     >
-      {/* Outer ambient glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(closest-side,rgba(99,102,241,0.18),transparent_70%)] pointer-events-none -z-10" />
+      {/* Outer Ambient Glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(closest-side,rgba(6,182,212,0.14),transparent_75%)] pointer-events-none -z-10" />
 
-      {/* Real Flagship Smartphone Chassis (iPhone 16 Pro Titanium Profile) */}
+      {/* Flagship Titanium Phone Chassis (Apple iPhone Pro Curved Profile) */}
       <motion.div
         style={tiltDisabled ? undefined : { rotateX, rotateY, transformStyle: 'preserve-3d' }}
-        className="relative w-[320px] sm:w-[346px] h-[650px] sm:h-[690px] rounded-[54px] sm:rounded-[56px] p-[8px] sm:p-[9px] bg-gradient-to-b from-[#565D6F] via-[#2A2E38] to-[#14161B] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.85),0_0_50px_rgba(6,182,212,0.12),inset_0_1px_2px_rgba(255,255,255,0.35),inset_0_-2px_4px_rgba(0,0,0,0.8)] ring-1 ring-white/20"
+        className="relative w-[275px] min-[380px]:w-[295px] sm:w-[325px] h-[565px] min-[380px]:h-[605px] sm:h-[660px] rounded-[48px] sm:rounded-[52px] p-[8px] sm:p-[9px] bg-gradient-to-b from-[#4A5060] via-[#22252E] to-[#111317] shadow-[0_25px_80px_-15px_rgba(0,0,0,0.85),0_0_40px_rgba(6,182,212,0.12),inset_0_1px_2px_rgba(255,255,255,0.4),inset_0_-2px_4px_rgba(0,0,0,0.8)] ring-1 ring-white/20"
       >
         {/* Subtle Chamfer Highlight Ring */}
-        <div className="absolute inset-[2px] rounded-[48px] sm:rounded-[50px] border border-white/[0.12] pointer-events-none" />
+        <div className="absolute inset-[2px] rounded-[46px] sm:rounded-[50px] border border-white/[0.14] pointer-events-none" />
 
         {/* Physical Side Buttons */}
-        {/* Action Button (Left) */}
-        <div className="absolute -left-[4px] top-[120px] w-[4px] h-[26px] bg-gradient-to-r from-slate-400 via-slate-500 to-slate-600 rounded-l-sm shadow-[-2px_0_3px_rgba(0,0,0,0.7)]" />
-        {/* Volume Up (Left) */}
-        <div className="absolute -left-[4px] top-[158px] w-[4px] h-[48px] bg-gradient-to-r from-slate-400 via-slate-500 to-slate-600 rounded-l-sm shadow-[-2px_0_3px_rgba(0,0,0,0.7)]" />
-        {/* Volume Down (Left) */}
-        <div className="absolute -left-[4px] top-[216px] w-[4px] h-[48px] bg-gradient-to-r from-slate-400 via-slate-500 to-slate-600 rounded-l-sm shadow-[-2px_0_3px_rgba(0,0,0,0.7)]" />
-        {/* Side / Power Button (Right) */}
-        <div className="absolute -right-[4px] top-[175px] w-[4px] h-[72px] bg-gradient-to-l from-slate-400 via-slate-500 to-slate-600 rounded-r-sm shadow-[2px_0_3px_rgba(0,0,0,0.7)]" />
-        {/* Camera Control Capacitive Surface (Right) */}
-        <div className="absolute -right-[3.5px] top-[265px] w-[3.5px] h-[36px] bg-gradient-to-l from-slate-500 to-slate-700 rounded-r-sm opacity-90 shadow-[1px_0_2px_rgba(0,0,0,0.6)]" />
+        <div className="absolute -left-[4px] top-[110px] w-[4px] h-[24px] bg-gradient-to-r from-slate-400 to-slate-600 rounded-l-sm shadow-[-2px_0_3px_rgba(0,0,0,0.7)]" />
+        <div className="absolute -left-[4px] top-[145px] w-[4px] h-[44px] bg-gradient-to-r from-slate-400 to-slate-600 rounded-l-sm shadow-[-2px_0_3px_rgba(0,0,0,0.7)]" />
+        <div className="absolute -left-[4px] top-[198px] w-[4px] h-[44px] bg-gradient-to-r from-slate-400 to-slate-600 rounded-l-sm shadow-[-2px_0_3px_rgba(0,0,0,0.7)]" />
+        <div className="absolute -right-[4px] top-[160px] w-[4px] h-[66px] bg-gradient-to-l from-slate-400 to-slate-600 rounded-r-sm shadow-[2px_0_3px_rgba(0,0,0,0.7)]" />
+        <div className="absolute -right-[3.5px] top-[242px] w-[3.5px] h-[34px] bg-gradient-to-l from-slate-500 to-slate-700 rounded-r-sm opacity-90 shadow-[1px_0_2px_rgba(0,0,0,0.6)]" />
 
         {/* Antenna Insulation Bands */}
-        <div className="absolute -left-[1px] top-24 w-[2px] h-[4px] bg-slate-600/80" />
-        <div className="absolute -left-[1px] bottom-24 w-[2px] h-[4px] bg-slate-600/80" />
-        <div className="absolute -right-[1px] top-24 w-[2px] h-[4px] bg-slate-600/80" />
-        <div className="absolute -right-[1px] bottom-24 w-[2px] h-[4px] bg-slate-600/80" />
+        <div className="absolute -left-[1px] top-20 w-[2px] h-[3px] bg-slate-600/80" />
+        <div className="absolute -left-[1px] bottom-20 w-[2px] h-[3px] bg-slate-600/80" />
+        <div className="absolute -right-[1px] top-20 w-[2px] h-[3px] bg-slate-600/80" />
+        <div className="absolute -right-[1px] bottom-20 w-[2px] h-[3px] bg-slate-600/80" />
 
-        {/* Inner OLED Bezel & Screen (True Edge-to-Edge) */}
-        <div className="relative w-full h-full rounded-[46px] sm:rounded-[48px] p-[3px] bg-black overflow-hidden shadow-inner flex flex-col">
+        {/* Inner OLED Bezel & Screen (Concentric Edge-to-Edge) */}
+        <div className="relative w-full h-full rounded-[43px] sm:rounded-[46px] p-[2.5px] bg-black overflow-hidden shadow-inner flex flex-col">
           {/* Earpiece Speaker Slot */}
-          <div className="absolute top-[3px] left-1/2 -translate-x-1/2 w-12 h-[3px] bg-[#1a1a1a] rounded-full z-40 border border-white/5" />
+          <div className="absolute top-[2.5px] left-1/2 -translate-x-1/2 w-10 h-[2.5px] bg-[#1a1a1a] rounded-full z-40 border border-white/5" />
 
           {/* Active Screen Display */}
-          <div className="relative w-full h-full rounded-[43px] sm:rounded-[45px] overflow-hidden bg-black">
+          <div className="relative w-full h-full rounded-[41px] sm:rounded-[44px] overflow-hidden bg-black flex flex-col">
             {/* Specular glass glare sheen */}
             {!tiltDisabled && (
               <motion.div
-                className="pointer-events-none absolute inset-0 z-40 opacity-[0.09] bg-gradient-to-tr from-transparent via-white to-transparent"
+                className="pointer-events-none absolute inset-0 z-40 opacity-[0.08] bg-gradient-to-tr from-transparent via-white to-transparent"
                 style={{
                   left: glareX,
                   top: glareY,
@@ -673,24 +741,23 @@ export const InteractivePhoneMockup: React.FC = () => {
               />
             )}
 
-            {/* Edge-to-Edge Floating Status Bar & Dynamic Island */}
-            <div
-              className={`absolute top-0 left-0 right-0 z-30 pt-3 px-6 pointer-events-none transition-colors duration-300 ${
-                meta.theme === 'dark' ? 'text-white' : 'text-slate-900'
-              }`}
-            >
-              <div className="flex justify-between items-center text-[11px] font-semibold tracking-tight">
+            {/* Status Bar Ambient Scrim (keeps clock & dynamic island legible during scroll) */}
+            <div className="absolute top-0 left-0 right-0 h-14 z-20 pointer-events-none bg-gradient-to-b from-black/85 via-black/40 to-transparent" />
+
+            {/* Edge-to-Edge Status Bar & Dynamic Island */}
+            <div className="absolute top-0 left-0 right-0 z-30 pt-2.5 px-6 pointer-events-none text-white">
+              <div className="flex justify-between items-center text-[10.5px] font-semibold tracking-tight">
                 <span>9:41</span>
                 <div className="flex items-center gap-1.5">
                   <Wifi size={11} />
-                  <span className="text-[9.5px] font-bold font-mono">5G</span>
+                  <span className="text-[9px] font-bold font-mono">5G</span>
                   <BatteryFull size={13} />
                 </div>
               </div>
 
               {/* Centered Dynamic Island */}
-              <div className="absolute top-2.5 left-1/2 -translate-x-1/2 pointer-events-auto">
-                <DynamicIsland message={meta.islandMessage} />
+              <div className="absolute top-2 left-1/2 -translate-x-1/2 pointer-events-auto">
+                <DynamicIsland message={meta.islandMessage} tone={meta.islandTone} />
               </div>
             </div>
 
@@ -704,7 +771,7 @@ export const InteractivePhoneMockup: React.FC = () => {
                   initial="enter"
                   animate="center"
                   exit="exit"
-                  transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
+                  transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
                   className="absolute inset-0"
                 >
                   {activeApp === 'peys' && <PeysApp animateIn={hasEntered} />}
@@ -715,13 +782,13 @@ export const InteractivePhoneMockup: React.FC = () => {
               </AnimatePresence>
             </div>
 
-            {/* Floating Glass Dock (App Switcher) & Home Indicator */}
-            <div className="absolute bottom-2.5 left-3 right-3 z-30 pointer-events-auto">
+            {/* Floating iOS 26 Liquid Glass Dock & Gesture Indicator */}
+            <div className="absolute bottom-2 left-2.5 right-2.5 z-30 pointer-events-auto">
               <AppDock activeApp={activeApp} onSelect={handleSelect} />
 
-              {/* iOS Home Gesture Indicator Bar */}
-              <div className="pt-2 pb-0.5 flex justify-center">
-                <div className="w-28 h-1 bg-white/40 rounded-full" />
+              {/* iOS Home Gesture Indicator */}
+              <div className="pt-1.5 pb-0.5 flex justify-center">
+                <div className="w-24 h-[3px] bg-white/40 rounded-full" />
               </div>
             </div>
           </div>

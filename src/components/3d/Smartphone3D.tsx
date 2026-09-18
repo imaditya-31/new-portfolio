@@ -119,7 +119,7 @@ export const Smartphone3D: React.FC = () => {
             <div className="flex justify-between items-center text-[10px] text-slate-400 px-2 pt-1 font-mono">
               <span>9:41</span>
               <div className="flex items-center space-x-1.5">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
                 <span>5G</span>
                 <span>100%</span>
               </div>
@@ -135,7 +135,7 @@ export const Smartphone3D: React.FC = () => {
               </div>
               <h4 className="text-xl font-bold mt-1 text-white flex items-center justify-between">
                 {currentScreen.appName}
-                <Sparkles size={16} className="text-cyan-400 animate-pulse" />
+                <Sparkles size={16} className="text-cyan-400" />
               </h4>
             </div>
 

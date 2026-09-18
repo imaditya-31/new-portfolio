@@ -21,9 +21,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const sizeStyles = {
-      sm: 'px-3.5 py-1.5 text-xs',
-      md: 'px-5 py-2.5 text-sm',
-      lg: 'px-7 py-3.5 text-base'
+      sm: 'px-3.5 py-1 text-xs',
+      md: 'px-4.5 py-1.5 text-xs sm:text-sm',
+      lg: 'px-6 py-2 text-sm font-semibold'
     };
 
     const variantStyles = {
@@ -36,7 +36,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       ghost:
         'bg-transparent hover:bg-slate-100 dark:hover:bg-white/[0.06] text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-medium',
       glow:
-        'relative bg-white dark:bg-[#0D1117] text-slate-900 dark:text-cyan-300 border border-slate-200/90 dark:border-cyan-500/40 shadow-sm hover:border-cyan-500 hover:text-cyan-600 dark:hover:text-cyan-300 font-medium'
+        'relative bg-white dark:bg-[#0D121D] text-slate-900 dark:text-cyan-300 border border-slate-200/90 dark:border-cyan-500/40 shadow-sm hover:border-cyan-500 hover:text-cyan-600 dark:hover:text-cyan-300 font-medium'
     };
 
     return (
@@ -46,7 +46,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         whileTap={{ scale: 0.98 }}
         transition={{ type: 'spring', stiffness: 400, damping: 25 }}
         className={cn(
-          'inline-flex items-center justify-center gap-2 rounded-xl transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none font-medium',
+          'inline-flex items-center justify-center gap-2 rounded-full transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none font-medium',
           sizeStyles[size],
           variantStyles[variant],
           className

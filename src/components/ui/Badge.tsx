@@ -31,7 +31,7 @@ export const Badge: React.FC<BadgeProps> = ({
     default: 'bg-slate-500 dark:bg-slate-400',
     cyan: 'bg-cyan-500 dark:bg-cyan-400',
     indigo: 'bg-indigo-500 dark:bg-indigo-400',
-    emerald: 'bg-emerald-500 dark:bg-emerald-400 animate-pulse',
+    emerald: 'bg-emerald-500 dark:bg-emerald-400',
     purple: 'bg-purple-500 dark:bg-purple-400',
     outline: 'bg-slate-400 dark:bg-slate-500'
   };

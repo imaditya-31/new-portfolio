@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface HeroSpotlightProps {
   className?: string;
@@ -6,31 +6,49 @@ interface HeroSpotlightProps {
 }
 
 export const HeroSpotlight: React.FC<HeroSpotlightProps> = ({ className = '', children }) => {
-  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
-  const [isHovered, setIsHovered] = useState(false);
+  const spotlightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let animationFrameId: number;
+
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-      if (!isHovered) setIsHovered(true);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      animationFrameId = requestAnimationFrame(() => {
+        if (spotlightRef.current) {
+          spotlightRef.current.style.opacity = '1';
+          spotlightRef.current.style.background = `radial-gradient(650px circle at ${e.clientX}px ${e.clientY}px, rgba(6, 182, 212, 0.08), rgba(99, 102, 241, 0.04) 40%, transparent 70%)`;
+        }
+      });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [isHovered]);
+    const handleMouseLeave = () => {
+      if (spotlightRef.current) {
+        spotlightRef.current.style.opacity = '0';
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    document.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
 
   return (
     <div className={`relative w-full overflow-hidden ${className}`}>
-      {/* Background Adaptive Precision Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(15,23,42,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.035)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+      {/* Background Adaptive Micro-Dot Matrix & Atmospheric Depth */}
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(15,23,42,0.08)_1px,transparent_1px)] dark:bg-[radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_75%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
 
-      {/* Dynamic Cursor Spotlight Beam */}
+      {/* Subtle Precision Grid overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(15,23,42,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.02)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none" />
+
+      {/* Dynamic Cursor Spotlight Beam - Zero React re-renders, 120fps GPU accelerated */}
       <div
-        className="pointer-events-none fixed inset-0 z-10 transition-opacity duration-500 ease-out hidden md:block"
-        style={{
-          opacity: isHovered ? 1 : 0,
-          background: `radial-gradient(650px circle at ${mousePos.x}px ${mousePos.y}px, rgba(6, 182, 212, 0.08), rgba(99, 102, 241, 0.04) 40%, transparent 70%)`
-        }}
+        ref={spotlightRef}
+        className="pointer-events-none fixed inset-0 z-10 transition-opacity duration-300 ease-out hidden md:block opacity-0"
       />
 
       {/* Ambient static glow for mobile & initial paint */}

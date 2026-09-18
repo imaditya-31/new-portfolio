@@ -30,15 +30,12 @@ export const Education: React.FC = () => {
       <div className="container-custom relative z-10">
         {/* Section Header */}
         <div className="flex flex-col items-center text-center mb-16">
-          <Badge variant="purple" dot className="mb-3">
-            <GraduationCap size={12} className="mr-1" />
-            Academic Foundations
-          </Badge>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-700 dark:text-purple-300 text-xs font-mono font-bold tracking-wider uppercase mb-4 shadow-sm">
+            <GraduationCap size={13} className="text-purple-600 dark:text-purple-400" />
+            <span>04 // Academic Foundations</span>
+          </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Education &amp;{' '}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-indigo-500 dark:from-purple-400 dark:to-indigo-400">
-              Credentials
-            </span>
+            Education &amp; Scholastic Honors
           </h2>
           <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base max-w-xl mt-3">
             Rigorous computer science scholarship with consistent top-tier 9.0+ CGPA academic performance.
@@ -54,7 +51,7 @@ export const Education: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.15 }}
-              className="p-8 rounded-3xl bg-white dark:bg-[#0D1117]/80 border border-slate-200/80 dark:border-white/[0.08] hover:border-purple-500/40 transition-all duration-300 backdrop-blur-xl flex flex-col justify-between shadow-sm hover:shadow-xl dark:shadow-none dark:hover:shadow-[0_0_30px_rgba(168,85,247,0.12)]"
+              className="p-8 rounded-3xl bg-white dark:bg-[#0D121D]/80 border border-slate-200/80 dark:border-white/[0.08] hover:border-purple-500/40 transition-all duration-300 backdrop-blur-xl flex flex-col justify-between shadow-sm hover:shadow-xl dark:shadow-none dark:hover:shadow-[0_0_30px_rgba(168,85,247,0.12)]"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-4">

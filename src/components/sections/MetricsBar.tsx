@@ -12,7 +12,7 @@ export const MetricsBar: React.FC = () => {
   ];
 
   return (
-    <section className="relative py-12 border-y border-slate-200/80 dark:border-white/[0.08] bg-slate-100/50 dark:bg-[#070A10]/70 backdrop-blur-md">
+    <section className="relative py-12 border-y border-slate-200/80 dark:border-white/[0.08] bg-slate-100/50 dark:bg-[#07090E]/70 backdrop-blur-md">
       <div className="container-custom">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {metricsData.map((metric, index) => (

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Download, Printer, Mail, Phone, MapPin, ExternalLink, Sparkles, FileText, CheckCircle2 } from 'lucide-react';
 import Button from './Button';
@@ -19,7 +20,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
       window.addEventListener('keydown', handleKeyDown);
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, onClose]);
@@ -28,19 +29,21 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
     window.print();
   };
 
-  if (!isOpen) return null;
+  if (typeof document === 'undefined') return null;
 
-  return (
+  return createPortal(
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-10">
-        {/* Backdrop */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-          className="fixed inset-0 bg-black/85 backdrop-blur-md"
-        />
+      {isOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 md:p-10 overflow-y-auto">
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-black/85 backdrop-blur-md cursor-pointer z-0"
+          />
 
         {/* Modal Sheet */}
         <motion.div
@@ -48,10 +51,10 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 25 }}
           transition={{ type: 'spring', damping: 28, stiffness: 320 }}
-          className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto bg-white dark:bg-[#0B0F17] border border-slate-200 dark:border-white/[0.15] rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.2)] dark:shadow-[0_25px_70px_rgba(0,0,0,0.9)] p-6 sm:p-10 z-10 text-slate-800 dark:text-slate-100"
+          className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto bg-white dark:bg-[#131926] border border-slate-200 dark:border-white/[0.15] rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.2)] dark:shadow-[0_25px_70px_rgba(0,0,0,0.9)] p-6 sm:p-10 z-10 text-slate-800 dark:text-slate-100"
         >
           {/* Action Toolbar Header */}
-          <div className="sticky -top-6 -mx-6 -mt-6 sm:-top-10 sm:-mx-10 sm:-mt-10 p-4 sm:px-10 bg-white/95 dark:bg-[#0B0F17]/95 backdrop-blur-xl border-b border-slate-200 dark:border-white/[0.08] flex flex-wrap items-center justify-between gap-3 z-30 mb-8 rounded-t-3xl">
+          <div className="sticky -top-6 -mx-6 -mt-6 sm:-top-10 sm:-mx-10 sm:-mt-10 p-4 sm:px-10 bg-white/95 dark:bg-[#131926]/95 backdrop-blur-xl border-b border-slate-200 dark:border-white/[0.08] flex flex-wrap items-center justify-between gap-3 z-30 mb-8 rounded-t-3xl">
             <div className="flex items-center gap-2">
               <div className="p-2 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
                 <FileText size={18} />
@@ -67,10 +70,10 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
             <div className="flex items-center gap-2">
               <button
                 onClick={handlePrint}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.06] dark:hover:bg-white/[0.12] text-xs font-mono font-medium text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-white/[0.1] transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.06] dark:hover:bg-white/[0.12] text-xs font-mono font-medium text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-white/[0.1] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
                 title="Print or Save as PDF"
               >
-                <Printer size={14} />
+                <Printer size={13} />
                 <span>Print / Save PDF</span>
               </button>
 
@@ -82,7 +85,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                 <Button
                   variant="primary"
                   size="sm"
-                  icon={<Download size={14} />}
+                  icon={<Download size={13} />}
                 >
                   Download Original PDF
                 </Button>
@@ -90,10 +93,10 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
 
               <button
                 onClick={onClose}
-                className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.06] dark:hover:bg-white/[0.12] text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors cursor-pointer ml-1"
+                className="p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.06] dark:hover:bg-white/[0.12] text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors cursor-pointer ml-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
                 aria-label="Close modal"
               >
-                <X size={18} />
+                <X size={17} />
               </button>
             </div>
           </div>
@@ -101,17 +104,25 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
           {/* CODE GENERATED RESUME BODY */}
           <div id="printable-resume" className="space-y-8 print:text-black">
             {/* Resume Header */}
-            <div className="border-b border-slate-200 dark:border-white/[0.1] pb-6">
-              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                  ADITYA VISHWAKARMA
-                </h2>
-                <Badge variant="cyan" dot>Flutter &amp; Mobile Engineer</Badge>
+            <div className="border-b border-slate-200 dark:border-white/[0.1] pb-6 flex items-start gap-4 sm:gap-5">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-cyan-500 to-indigo-600 p-[1.5px] shadow-[0_0_15px_rgba(6,182,212,0.4)] flex-shrink-0">
+                <img
+                  src="/assets/photo.jpg"
+                  alt="Aditya Vishwakarma"
+                  className="w-full h-full rounded-[14px] object-cover"
+                />
               </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                    ADITYA VISHWAKARMA
+                  </h2>
+                  <Badge variant="cyan">Mobile App Engineer</Badge>
+                </div>
 
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs font-mono text-slate-500 dark:text-slate-400 mt-3">
-                <a href="mailto:adityavishwakarma355@gmail.com" className="hover:text-cyan-600 dark:hover:text-cyan-400 flex items-center gap-1">
-                  <Mail size={13} /> adityavishwakarma355@gmail.com
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs font-mono text-slate-500 dark:text-slate-400 mt-2.5">
+                <a href="mailto:adityaa.inwork@gmail.com" className="hover:text-cyan-600 dark:hover:text-cyan-400 flex items-center gap-1">
+                  <Mail size={13} /> adityaa.inwork@gmail.com
                 </a>
                 <span className="text-slate-400 dark:text-slate-600">•</span>
                 <a href="tel:+919657312456" className="hover:text-cyan-600 dark:hover:text-cyan-400 flex items-center gap-1">
@@ -131,6 +142,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                 </a>
               </div>
             </div>
+          </div>
 
             {/* Professional Summary */}
             <div>
@@ -138,7 +150,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                 <Sparkles size={13} /> PROFESSIONAL SUMMARY
               </h3>
               <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-white/[0.02] p-4 rounded-2xl border border-slate-200 dark:border-white/[0.06]">
-                Flutter Developer with <strong>2+ years of experience</strong> building and maintaining production mobile applications across fintech, BBPS, digital lending, B2B, and B2C domains. Strong expertise in <strong>Flutter, Dart, BLoC, Cubit, GetX, Clean Architecture, REST APIs, Firebase</strong>, payment integrations, and Android/iOS deployments. Experienced in production debugging, crash resolution (reducing incidents from 20k to &lt;500), native Android integration, and end-to-end application development and release management.
+                Flutter Developer with <strong>2+ years of experience</strong> building and maintaining production mobile applications across fintech, BBPS, digital lending, B2B, and B2C domains. Strong expertise in <strong>Flutter, Dart, BLoC, Cubit, GetX, Clean Architecture, REST APIs, Firebase</strong>, payment integrations, and Android/iOS deployments. Experienced in production debugging, crash resolution (reducing incidents from 20k to &lt;500), native Android integration, and end-to-end application development and release management. <strong className="text-cyan-600 dark:text-cyan-400">Actively open to new project development, collaboration on existing apps, and freelance engineering contracts.</strong>
               </p>
             </div>
 
@@ -185,9 +197,9 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                   </div>
                   <ul className="space-y-1.5 text-xs text-slate-700 dark:text-slate-300 list-disc list-inside leading-relaxed">
                     <li>Responsible for end-to-end development of two Flutter apps: a BBPS payment application and a digital lending application.</li>
-                    <li>Lead application architecture, project configuration, feature development, REST API integration, debugging, testing support, and release preparation.</li>
+                    <li>Lead mobile application development, project setup, feature development, REST API integration, debugging, and release management.</li>
                     <li>Develop BBPS workflows covering biller discovery, dynamic forms, plan retrieval, bill validation, wallet and gateway payments, and transaction tracking.</li>
-                    <li>Architect the lending application using BLoC, clean architecture, dependency injection, secure storage, reusable components, and guarded routing.</li>
+                    <li>Built the lending application using BLoC, Clean Architecture, dependency injection, secure storage, reusable components, and guarded routing.</li>
                     <li>Configure Firebase, Google Cloud, Android and iOS environments, signing credentials, Google Play Console, and App Store Connect.</li>
                   </ul>
                 </div>
@@ -261,8 +273,10 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
           </div>
         </motion.div>
       </div>
-    </AnimatePresence>
-  );
+    )}
+  </AnimatePresence>,
+  document.body
+);
 };
 
 export default ResumeModal;

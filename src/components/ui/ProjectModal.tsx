@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, Github, CheckCircle2, Layers, Cpu, ShieldCheck } from 'lucide-react';
+import { X, ExternalLink, Github, CheckCircle2, Layers, Cpu, ShieldCheck, ArrowRight } from 'lucide-react';
 import { Project } from '../../types';
 import Badge from './Badge';
 import Button from './Button';
@@ -20,46 +21,48 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
       window.addEventListener('keydown', handleKeyDown);
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [project, onClose]);
 
-  if (!project) return null;
+  if (typeof document === 'undefined') return null;
 
-  return (
+  return createPortal(
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
-        {/* Backdrop */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-          className="fixed inset-0 bg-black/80 backdrop-blur-md"
-        />
-
-        {/* Modal Window */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-          className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-white dark:bg-[#0D1117] border border-slate-200 dark:border-white/[0.12] rounded-3xl shadow-2xl p-6 sm:p-8 z-10 custom-scrollbar text-slate-900 dark:text-white"
-        >
-          {/* Close button */}
-          <button
+      {project && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-8 overflow-y-auto">
+          {/* Backdrop - sits cleanly above the fixed navbar */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             onClick={onClose}
-            className="absolute top-6 right-6 p-2 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.06] dark:hover:bg-white/[0.12] text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors cursor-pointer"
-            aria-label="Close modal"
+            className="fixed inset-0 bg-black/80 backdrop-blur-md cursor-pointer z-0"
+          />
+
+          {/* Modal Window */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 16 }}
+            transition={{ type: 'spring', damping: 30, stiffness: 350 }}
+            className="relative w-full max-w-3xl max-h-[88vh] overflow-y-auto bg-white dark:bg-[#131926] border border-slate-200 dark:border-white/[0.12] rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.35)] dark:shadow-[0_25px_70px_rgba(0,0,0,0.9)] p-6 sm:p-8 z-10 custom-scrollbar text-slate-900 dark:text-white my-auto"
           >
-            <X size={20} />
-          </button>
+            {/* Close button */}
+            <button
+              onClick={onClose}
+              className="absolute top-5 right-5 sm:top-6 sm:right-6 p-2 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.08] dark:hover:bg-white/[0.16] text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors cursor-pointer z-20"
+              aria-label="Close modal"
+            >
+              <X size={20} />
+            </button>
 
           {/* Header */}
           <div className="pr-12">
             <div className="flex flex-wrap items-center gap-2 mb-3">
-              <Badge variant="cyan" dot>{project.status}</Badge>
+              <Badge variant="cyan">{project.status}</Badge>
               {project.company && (
                 <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
                   @ {project.company}
@@ -93,24 +96,36 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
           {/* Description */}
           <div className="my-6">
-            <h4 className="text-xs uppercase tracking-wider font-mono text-slate-500 dark:text-slate-400 mb-2">
-              Overview
+            <h4 className="text-xs uppercase tracking-wider font-mono text-slate-500 dark:text-slate-400 mb-2 font-bold">
+              Engineering Architecture &amp; System Overview
             </h4>
-            <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-white/[0.02] p-4 rounded-2xl border border-slate-200 dark:border-white/[0.06]">
               {project.description}
             </p>
           </div>
 
-          {/* Architecture Spotlight */}
+          {/* Architecture Spotlight with Flow Pipeline */}
           {project.architecture && (
-            <div className="my-6 p-4 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.08]">
-              <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-mono text-xs uppercase tracking-wider mb-2">
+            <div className="my-6 p-5 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.08]">
+              <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-mono text-xs uppercase tracking-wider mb-2 font-bold">
                 <Cpu size={16} />
-                <span>Architecture Pattern</span>
+                <span>Architecture Pattern &amp; Pipeline</span>
               </div>
-              <p className="text-sm text-slate-800 dark:text-slate-200 font-medium">
+              <p className="text-sm text-slate-800 dark:text-slate-200 font-medium mb-3">
                 {project.architecture}
               </p>
+              {/* Architecture 3-Layer Flow Pipeline */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] font-mono pt-2 border-t border-slate-200 dark:border-white/[0.08]">
+                <div className="p-2 rounded-lg bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20 text-center font-medium">
+                  1. Presentation (BLoC UI)
+                </div>
+                <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-500/20 text-center font-medium">
+                  2. Domain (Use Cases)
+                </div>
+                <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 text-center font-medium">
+                  3. Data &amp; Hardware Bridges
+                </div>
+              </div>
             </div>
           )}
 
@@ -195,8 +210,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
           </div>
         </motion.div>
       </div>
-    </AnimatePresence>
-  );
+    )}
+  </AnimatePresence>,
+  document.body
+);
 };
 
 export default ProjectModal;
