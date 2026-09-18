@@ -629,33 +629,36 @@ export const InteractivePhoneMockup: React.FC = () => {
       {/* Real Flagship Smartphone Chassis (iPhone 16 Pro Titanium Profile) */}
       <motion.div
         style={tiltDisabled ? undefined : { rotateX, rotateY, transformStyle: 'preserve-3d' }}
-        className="relative w-[310px] sm:w-[335px] h-[640px] sm:h-[680px] rounded-[52px] p-[3.5px] bg-gradient-to-b from-[#4A5162] via-[#262A34] to-[#121419] shadow-[0_30px_90px_-20px_rgba(0,0,0,0.7),0_0_50px_rgba(6,182,212,0.12)] ring-1 ring-white/20"
+        className="relative w-[320px] sm:w-[346px] h-[650px] sm:h-[690px] rounded-[54px] sm:rounded-[56px] p-[8px] sm:p-[9px] bg-gradient-to-b from-[#565D6F] via-[#2A2E38] to-[#14161B] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.85),0_0_50px_rgba(6,182,212,0.12),inset_0_1px_2px_rgba(255,255,255,0.35),inset_0_-2px_4px_rgba(0,0,0,0.8)] ring-1 ring-white/20"
       >
+        {/* Subtle Chamfer Highlight Ring */}
+        <div className="absolute inset-[2px] rounded-[48px] sm:rounded-[50px] border border-white/[0.12] pointer-events-none" />
+
         {/* Physical Side Buttons */}
         {/* Action Button (Left) */}
-        <div className="absolute -left-[3.5px] top-[115px] w-[3.5px] h-[24px] bg-gradient-to-r from-slate-400 to-slate-600 rounded-l-sm shadow-[-1px_0_2px_rgba(0,0,0,0.6)]" />
+        <div className="absolute -left-[4px] top-[120px] w-[4px] h-[26px] bg-gradient-to-r from-slate-400 via-slate-500 to-slate-600 rounded-l-sm shadow-[-2px_0_3px_rgba(0,0,0,0.7)]" />
         {/* Volume Up (Left) */}
-        <div className="absolute -left-[3.5px] top-[152px] w-[3.5px] h-[46px] bg-gradient-to-r from-slate-400 to-slate-600 rounded-l-sm shadow-[-1px_0_2px_rgba(0,0,0,0.6)]" />
+        <div className="absolute -left-[4px] top-[158px] w-[4px] h-[48px] bg-gradient-to-r from-slate-400 via-slate-500 to-slate-600 rounded-l-sm shadow-[-2px_0_3px_rgba(0,0,0,0.7)]" />
         {/* Volume Down (Left) */}
-        <div className="absolute -left-[3.5px] top-[208px] w-[3.5px] h-[46px] bg-gradient-to-r from-slate-400 to-slate-600 rounded-l-sm shadow-[-1px_0_2px_rgba(0,0,0,0.6)]" />
+        <div className="absolute -left-[4px] top-[216px] w-[4px] h-[48px] bg-gradient-to-r from-slate-400 via-slate-500 to-slate-600 rounded-l-sm shadow-[-2px_0_3px_rgba(0,0,0,0.7)]" />
         {/* Side / Power Button (Right) */}
-        <div className="absolute -right-[3.5px] top-[165px] w-[3.5px] h-[68px] bg-gradient-to-l from-slate-400 to-slate-600 rounded-r-sm shadow-[1px_0_2px_rgba(0,0,0,0.6)]" />
+        <div className="absolute -right-[4px] top-[175px] w-[4px] h-[72px] bg-gradient-to-l from-slate-400 via-slate-500 to-slate-600 rounded-r-sm shadow-[2px_0_3px_rgba(0,0,0,0.7)]" />
         {/* Camera Control Capacitive Surface (Right) */}
-        <div className="absolute -right-[3px] top-[250px] w-[3px] h-[34px] bg-gradient-to-l from-slate-500 to-slate-700 rounded-r-sm opacity-90" />
+        <div className="absolute -right-[3.5px] top-[265px] w-[3.5px] h-[36px] bg-gradient-to-l from-slate-500 to-slate-700 rounded-r-sm opacity-90 shadow-[1px_0_2px_rgba(0,0,0,0.6)]" />
 
         {/* Antenna Insulation Bands */}
-        <div className="absolute -left-[1px] top-24 w-[2px] h-[3px] bg-slate-600/70" />
-        <div className="absolute -left-[1px] bottom-24 w-[2px] h-[3px] bg-slate-600/70" />
-        <div className="absolute -right-[1px] top-24 w-[2px] h-[3px] bg-slate-600/70" />
-        <div className="absolute -right-[1px] bottom-24 w-[2px] h-[3px] bg-slate-600/70" />
-
-        {/* Earpiece Speaker Slot */}
-        <div className="absolute top-[4px] left-1/2 -translate-x-1/2 w-12 h-[3px] bg-[#1a1a1a] rounded-full z-40 border border-white/5" />
+        <div className="absolute -left-[1px] top-24 w-[2px] h-[4px] bg-slate-600/80" />
+        <div className="absolute -left-[1px] bottom-24 w-[2px] h-[4px] bg-slate-600/80" />
+        <div className="absolute -right-[1px] top-24 w-[2px] h-[4px] bg-slate-600/80" />
+        <div className="absolute -right-[1px] bottom-24 w-[2px] h-[4px] bg-slate-600/80" />
 
         {/* Inner OLED Bezel & Screen (True Edge-to-Edge) */}
-        <div className="relative w-full h-full rounded-[48px] p-[2.5px] bg-black overflow-hidden shadow-inner flex flex-col">
+        <div className="relative w-full h-full rounded-[46px] sm:rounded-[48px] p-[3px] bg-black overflow-hidden shadow-inner flex flex-col">
+          {/* Earpiece Speaker Slot */}
+          <div className="absolute top-[3px] left-1/2 -translate-x-1/2 w-12 h-[3px] bg-[#1a1a1a] rounded-full z-40 border border-white/5" />
+
           {/* Active Screen Display */}
-          <div className="relative w-full h-full rounded-[45px] overflow-hidden bg-black">
+          <div className="relative w-full h-full rounded-[43px] sm:rounded-[45px] overflow-hidden bg-black">
             {/* Specular glass glare sheen */}
             {!tiltDisabled && (
               <motion.div
